@@ -1,0 +1,41 @@
+{% load static %}
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phots</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'My_Buddy/friendprofile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'My_Buddy/photo.css' %}">
+
+</head>
+<body style="background:url({% static 'image/bg6.jpg' %})">
+
+<h1 style="text-align:center;padding:1% 2%;background-color:grey;" class="col-12">Profile Photos</h1>
+<div>
+{% for i in q2.user_profile_photos_set.all %}
+    <img style="border-radius:0px;margin:0px;" src="{{ i.pro_picture.url }}" class="profile_icon b ">
+{% endfor %}
+
+</div>
+
+<h1 style="text-align:center;padding:1% 2%;background-color:grey;" class="col-12">Cover Photos</h1>
+<div >
+{% for i in q2.user_cover_photos_set.all %}
+    <img style="border-radius:0px;margin:0px;" src="{{ i.cover_picture.url }}" class="profile_icon b ">
+{% endfor %}
+
+</div>
+
+
+<h1 style="text-align:center;padding:1% 2%;background-color:grey;" class="col-12">timeline Photos</h1>
+<div>
+{% for i in q2.user_timeline_photos_set.all %}
+    <img style="border-radius:0px;margin:0px;" src="{{ i.timenine_picture.url }}" class="profile_icon b ">
+{% endfor %}
+
+</div>
+
+</body>
+</html>

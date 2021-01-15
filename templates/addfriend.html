@@ -1,0 +1,113 @@
+{% load static %}
+{% load cloudinary %}
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>friends</title>
+    <link rel="icon"  href="{% static 'image/icon.png' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="img.css">
+<link rel="stylesheet" href="{% static 'My_Buddy/addfriend1.css' %}">
+<link rel="stylesheet" href="{% static 'My_Buddy/home.css' %}">
+
+
+</head>
+<form method="post">{% csrf_token %}<button style="margin-left:-12%;" type="submit" name="back">Back</button></form>
+
+<body style="margin-left:12.5%;">
+{% for i in k %}
+        {% if i not in x %}
+        {% if i.cover %}
+        <div style="background:url({{ i.cover.url }});padding:5px;border-radius:10px;border:2px solid; float:left;background-color:white;width:15%;margin: 1%;">
+		{% if i.profilepicture %}
+        <a target="_blank" href="{{ i.profilepicture.url }}">
+            <img style="margin-left:8.5%;"  src="{{ i.profilepicture.url }}"  class="profile_icon b"></a>
+<!--		<img src="ash.jpg" style="margin-left:8.5%; " class="profile_icon b"></a>-->
+        {% else %}
+            <img style="margin-left:8.5%;" class="profile_icon b" src="{% static 'image/proicon.jpg' %}">
+
+        {% endif %}
+
+		<div style="background-color:white;width:100%;text-align:center;padding-bottom:3%;">
+		<hr>
+		<b style="font-size:20px;">{{ i.name }}</b>
+		<hr>
+        <form method="post">
+        {% csrf_token %}
+		<button style="margin-left:0%;width:50%;padding:1% 0% 1% 0%;border-radius:20px;text-align:center;" type="submit" name="i"  value="{{ i.username }}" class="comment">Accept</button>
+		</form>
+        </div>
+
+    </div>
+    {% else %}
+    <div style="background:url({% static 'image/bg6.jpg' %});padding:5px;border-radius:10px;border:2px solid; float:left;background-color:white;width:15%;margin: 1%;">
+		{% if i.profilepicture %}
+        <a target="_blank" href="{{ i.profilepicture.url }}">
+            <img style="margin-left:8.5%;"  src="{{ i.profilepicture.url }}"  class="profile_icon b"></a>
+<!--		<img src="ash.jpg" style="margin-left:8.5%; " class="profile_icon b"></a>-->
+        {% else %}
+            <img style="margin-left:8.5%;" class="profile_icon b" src="{% static 'image/proicon.jpg' %}">
+
+        {% endif %}
+
+		<div style="color:white;width:100%;text-align:center;padding-bottom:3%;">
+		<hr>
+            <a class="t" href="{% url 'blog:friendprofile' q.username %}"><b style="font-size:20px;">{{ i.name }}</b></a>
+		<hr>
+        <form method="post">
+        {% csrf_token %}
+		<button style="margin-left:0%;width:50%;padding:1% 0% 1% 0%;border-radius:20px;text-align:center;" type="submit" name="i"  value="{{ i.username }}" class="comment">Accept</button>
+		</form>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+
+{% endif %}
+{% endfor %}
+{% for k in z %}
+{% if k not in x %}
+<div style="background:url({{ i.cover.url }});border:2px solid grey;padding:5px;border-radius:10px; float:left;background-color:white;width:15%;margin: 1%;">
+		{% if k.profilepicture %}
+        <a target="_blank" href="{{ k.profilepicture.url }}">
+            <img style="margin-left:8.5%; " class="profile_icon b" src="{{ k.profilepicture.url }}"  class="profile_icon b" alt="..."></a>
+<!--		<img src="ash.jpg" style="margin-left:8.5%; " class="profile_icon b"></a>-->
+        {% else %}
+            <img style="margin-left:8.5%; " class="profile_icon b" src="{% static 'image/proicon.jpg' %}">
+
+        {% endif %}
+
+		<div style="background-color:white;width:100%;text-align:center;padding-bottom:3%;">
+		<hr>
+		<b style="font-size:20px;">{{ k.name }}</b>
+		<hr>
+        <form method="post">
+            {% csrf_token %}
+		<button style="margin-left:0%;width:50%;padding:1% 0% 1% 0%;border-radius:20px;text-align:center;" type="submit" name="i"  value="{{ k.username }}" class="comment">add</button>
+		</form>
+        </div>
+</div>
+
+
+
+{% endif %}
+{% endfor %}
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</body>
+<div style="width:100%;" class="col-12">
+</div>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #777;
+		color: white;
+		cursor: pointer;
+		padding: 18px;
+		width: 40%;
+		height:0.5%;
+		border:none;
+		box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+		border-radius:30px;
+		text-align:center;
+		outline: none;
+		font-size: 13px;
+		transition: width .5s;
+	}
+
+.active, .collapsible:hover {
+		background-color: #555;
+		width: 250px;
+
+
+	}
+
+.content {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding:18px;
+		display: none;
+		overflow: hidden;
+		background-color: #F5B7B1 ;
+		width:40%;
+
+		text-align:center;
+}
+input{
+		outline:none;
+		border:none;
+		box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+	}
+.x{
+		margin:100px 400px;
+		background-color:#DC143C;
+		padding: 50px;
+		border:1px solid green;
+		border-radius:10px ;
+
+	}
+</style>
+</head>
+<body>
+
+
+
+
+<div class="x">
+
+	<button type="button" class="collapsible">Create Account</button>
+	<div class="content">
+	  <div  >
+
+		<form  method="post">
+            {% csrf_token %}
+
+		  <div >
+			<input type="text" name="Username" placeholder="Username" required><br>
+              <br>
+            <input type="text" name="name" placeholder="name" required><br>
+              <br>
+            <input type="text" name="contact" placeholder="contact" required><br>
+              <br>
+            <input type="text" name="email" placeholder="email" required><br>
+              <br>
+            <input style="width:170px;" type="date" name="dd" placeholder="Birthday" required><br>
+              <br>
+            <input type="password" name="password" placeholder="Password" required><br>
+              <br>
+            <input type="password" name="confirmpassword" placeholder="Confirm password" required><br>
+              <br>
+            <input type="submit" name="SignUp" value="SignUp">
+              <br>
+
+			</div>
+		</form>
+		</div>
+	</div>
+	<br>
+
+	<button type="button" class="collapsible">Log In</button>
+	<div class="content">
+		<div >
+			<form  method="post">
+				<div >
+                    {% csrf_token %}
+
+                    <input type="text" name="username" placeholder="Username" required><br>
+                    <br>
+                    <input type="password" name="password" placeholder="Password" required><br>
+                    <br>
+                    <input type="submit" name="Login" value="Login">
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div style="margin:-11% 30% 0% 40%;">
+
+{% if messages %}
+{% for i in messages %}
+<p style="color:white;">*{{ i }}</p>
+{% endfor %}
+{% endif %}
+</div>
+
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>

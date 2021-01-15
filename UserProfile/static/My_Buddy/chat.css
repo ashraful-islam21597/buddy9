@@ -1,0 +1,279 @@
+body,html{
+
+	padding:0;
+	margin: 0;
+    height:100%;
+    background-color:powderblue;
+}
+.my_message_box{
+	float:left;
+	width:100%;
+	border-radius:10px;
+	color:white;
+	margin-top:5px;
+	padding:5px 0px;
+}
+.my_message{
+	background-color:#A1B3E8;
+	max-width:50%;
+	float:right;
+	border-radius:10px;
+	padding:10px;
+	color:black;
+	margin-right:10px;
+	box-shadow: 3px 3px 3px #aaaaaa;
+}
+.chat_box{
+	background-color:white;
+	height:80%;
+	overflow:auto;
+}
+.friend_message{
+	background-color:#EBEDF3;
+	max-width:50%;
+	float:left;
+	border-radius:10px;
+	padding:5px;
+	color:black;
+	text-align: justify;
+
+	word-wrap: break-word;
+		box-shadow: 3px 3px 3px #aaaaaa;
+
+
+}
+.friend_message_box{
+	float:left;
+	width:80%;
+	border-radius:10px;
+	color:white;
+	margin-top:5px;
+	padding:5px 15px;
+	word-wrap: break-word;
+}
+.friend_message_box img{
+	float:left;
+	margin-top:-10px;
+	}
+.friend_message:hover{
+	transform: scale(1.3,1.3);
+
+	margin-left:5%;
+    /*border:1px solid #C70039;*/
+    z-index:1;
+    box-shadow: 10px 10px 5px #aaaaaa;
+
+}
+
+
+.container{
+	margin:auto;
+	height:100%;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:black;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:white;
+}
+
+.box{
+
+	border:1px solid;
+	float:left;
+	height:95%;
+	background-color:white;
+}
+.box1{
+
+	border:0.5px solid;
+	float:left;
+	height:95%;
+}
+.chat_header{
+	width:100%;
+	height:10%;
+	background-color:grey;
+}
+.chat_header img.middle{
+	vertical-align: middle;
+	margin-right:10%;
+
+	text-overflow:clip;
+	overflow: hidden;
+
+	margin-left:-50%;
+	height:30px;
+	width:30px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+img.m{
+	vertical-align: middle;
+	margin-right:1%;
+	margin:1%;
+	height:50px;
+	width:50px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+.chat_header img.m{
+	vertical-align: middle;
+	margin-right:1%;
+	margin:1%;
+	height:50px;
+	width:50px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+.a{
+	text-transform: capitalize;
+	color: white;
+
+}
+.a > a{
+	text-decoration:none;
+	color:white;
+}
+.send_box{
+	height:10%;
+	background-color:white;
+
+}
+textarea{
+	outline:none;
+	padding:7px 25px 0px 15px;
+	resize:none;
+	border-radius:10px;
+	color:grey;
+	width:80%;
+	margin:1.5%;
+
+}
+textarea:focus{
+ border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+.send_button{
+	outline:none;
+	height:36px;
+	background-color:white;
+	color:grey;
+	border:1px solid grey;
+	width:80%;
+	border-radius:10px;
+	margin-top:7%;
+
+}
+.send_button:hover{
+	background-color:grey;
+	color:white;
+
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%; }
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media screen and (max-width: 600px) {
+.chat_header{
+	width:100%;
+	height:10%;
+	background-color:grey;
+}
+.friend_message_box{
+	float:left;
+	width:80%;
+	border-radius:10px;
+	color:white;
+	margin-top:5px;
+	padding:5px 15px;
+}
+.friend_message{
+	background-color:#EBEDF3;
+	max-width:50%;
+	float:left;
+	border-radius:10px;
+	padding:10px;
+	color:black;
+}
+.container{
+	height:100%;
+
+}
+  img.middle{
+	vertical-align: middle;
+	margin-right:10%;
+
+	text-overflow:clip;
+	overflow: hidden;
+
+	margin-left:-50%;
+	height:30px;
+	width:30px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+.chat_header img.m{
+	vertical-align: middle;
+	margin-right:1%;
+	margin:2%;
+	height:40px;
+	width:40px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+img.m{
+	vertical-align: middle;
+	margin-right:1%;
+	margin:1%;
+	height:30px;
+	width:30px;
+	object-position:top;
+	border-radius:100%;
+	object-fit:cover;
+}
+.box{
+	display: none;
+
+}
+.box1{
+
+	border:0.5px solid;
+	float:left;
+	height:95%;
+	width:100%;
+	margin:0% 1% 0% -5%;
+}
+.friend_message_box img{
+	margin-top:5%;
+}
+

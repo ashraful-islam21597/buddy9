@@ -1,0 +1,934 @@
+{% load static %}
+{% load cloudinary %}
+<! DOCTYPE html>
+<html>
+<head>
+    <title>My Buddy</title>
+        <link rel="icon"  href="{% static 'image/icon.png' %}">
+
+
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link  rel="stylesheet" type="text/css" href="{% static 'My_Buddy/home.css' %}">
+    <link  rel="stylesheet" type="text/css" href="{% static 'My_Buddy/img.css' %}">
+    <link  rel="stylesheet" type="text/css" href="{% static 'My_Buddy/home1.css' %}">
+</head>
+<body>
+
+<!-- edit profile area -->
+<div id="editScreen">
+
+    <form method="post">
+        {% csrf_token %}
+        <h1 style="color:white;">Edit Profile:</h1>
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">
+            {% if q.present_address %}
+            <p><textarea name="presentaddress" oninput="this.className = ''" placeholder="present address...">{{ q.present_address }}</textarea>
+            </p>
+            {% else %}
+            <p><textarea name="presentaddress" oninput="this.className = ''"
+                         placeholder="present address..."></textarea></p>
+            {% endif %}
+
+            {% if q.permanent_address %}
+            <p><textarea name="permanentaddress" oninput="this.className = ''" placeholder="Parmanent Address...">{{ q.permanent_address }}</textarea>
+            </p>
+
+            {% else %}
+            <p><textarea name="permanentaddress" oninput="this.className = ''"
+                         placeholder="Parmanent Address..."></textarea></p>
+            {% endif %}
+
+            {% if q.email %}
+            <p><textarea name="email" oninput="this.className = ''" placeholder="E-mail...">{{ q.email }}</textarea></p>
+
+            {% else %}
+            <p><textarea name="email" oninput="this.className = ''" placeholder="E-mail..."></textarea></p>
+
+            {% endif %}
+
+            {% if q.contact %}
+            <p><textarea name="phone" oninput="this.className = ''" placeholder="Phone...">{{ q.contact }}</textarea>
+            </p>
+            {% else %}
+            <p><textarea name="phone" oninput="this.className = ''" placeholder="Phone..."></textarea></p>
+            {% endif %}
+
+<!--            {% if q.birthday %}-->
+<!--            <p><input name="dd" oninput="this.className = ''" placeholder="Birthday" type="date"-->
+<!--                      value="{{ q.birtday }}" required></p>-->
+
+<!--            {% else %}-->
+<!--            <p><textarea name="dd" oninput="this.className = ''" placeholder="Birthday" type="date"></textarea></p>-->
+
+<!--            {% endif %}-->
+
+            {% if q.school %}
+            <p><textarea name="School" oninput="this.className = ''" placeholder="School...">{{ q.school }}</textarea>
+            </p>
+
+            {% else %}
+            <p><textarea name="School" oninput="this.className = ''" placeholder="School..."></textarea></p>
+
+            {% endif %}
+
+            {% if q.college %}
+            <p><textarea name="College" oninput="this.className = ''"
+                         placeholder="college...">{{ q.college }}</textarea></p>
+
+            {% else %}
+            <p><textarea name="College" oninput="this.className = ''" placeholder="college..."></textarea></p>
+
+            {% endif %}
+
+            {% if q.job %}
+            <p><textarea name="job" oninput="this.className = ''" placeholder="Job...">{{ q.job }}</textarea></p>
+
+            {% else %}
+            <p><textarea name="job" oninput="this.className = ''" placeholder="Job..."></textarea></p>
+
+            {% endif %}
+
+
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+
+        <button name="submit" type="submit" value="submit">Submit</button>
+    </form>
+
+</div>
+<div id="cover1">
+    <a class="cancel" href="">×</a>
+</div>
+
+
+<!-- status textarea -->
+
+<div id="loginScreen">
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="post" required style="width:70%;height:150px;margin:auto;border-bottom:2px solid red;outline:none;resize:none;"></textarea>
+        <br>
+        <br>
+        <input class="comment" name="add" style="margin-left:20%;border-radius:100px;" type="submit" value="post">
+    </form>
+    <br>
+    <button class="comment" style="margin-left:20%;border-radius:100px;margin-top:-1%;" type="submit">Upload image or video</button>
+    <div class="context">
+        <br>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <input name="timelineimage" required style="float:left;" type="file">
+            <br>
+            <br>
+            <textarea name="caption"
+                      style="width:100%;height:10%;margin:auto;border-bottom:2px solid red;resize:none;outline:none;"></textarea>
+            <br>
+            <br>
+            <input name="uploadtimelinephoto" type="submit" value="upload">
+            <br>
+            <br>
+        </form>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <input name="timelinevideo" required style="float:left;" type="file">
+            <textarea name="caption"
+                      style="width:100%;height:10%;margin:auto;border-bottom:2px solid red;resize:none;outline:none;"></textarea>
+            <br>
+            <input name="uploadtimelinevideo" type="submit" value="upload">
+            <br>
+            <br>
+        </form>
+    </div>
+</div>
+<div id="cover">
+    <a class="cancel" href="">×</a>
+</div>
+
+<!-- profile sidebar -->
+
+<div class="col-2 profile_sidebar">
+    {% if q %}
+    {% if q.profilepicture %}
+
+
+
+    {% cloudinary q.profilepicture format="jpg" width=1000 height=1000 crop="fill" class="profile_icon b" %}
+<!--    <img class="profile_icon b" src="{{ q.profilepicture.url }}">-->
+    {% else %}
+    <img class="profile_icon b" src="{% static 'image/proicon.jpg' %}">
+    {% endif %}
+    {% endif %}
+
+    <button class="btn" style="outline:none;">Upload</button>
+    <div class="context1">
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <br>
+            <input name="upload" type="submit" value="upload">
+            <input name="image" required style="width:150px;outline:none;" type="file">
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <div style="text-align:center;">
+        <b style="text-transform:capitalize;">
+            <a href="{% url 'blog:friendprofile' q.username %}" style="color:white;text-decoration:none;">
+                <div>{{ q.name|title }}</div>
+            </a>
+        </b>
+        <b>
+            <ins>Contact</ins>
+        </b>
+        <div><b><i>{{ q.contact }}</i></b></div>
+        <div><b><a href="https:www.gmail.com">{{ q.email }}</a></b></div>
+
+        {% if q.present_address %}
+        <b>
+            <ins>Present Address</ins>
+        </b>
+        <div><i>{{ q.present_address }}</i></div>
+        {% endif %}
+
+        {% if q.permanent_address %}
+        <b>
+            <ins>Parmanent Address</ins>
+        </b>
+        <div><i>{{ q.permanent_address }}</i></div>
+        {% endif %}
+
+        {% if q.job %}
+        <b>
+            <ins>Proffession</ins>
+        </b>
+        <div><i>{{ q.job }}</i></div>
+        {% endif %}
+
+        {% if q.school %}
+        <b>
+            <ins>School</ins>
+        </b>
+        <div><i>{{ q.school }}</i></div>
+        {% endif %}
+
+        {% if q.college %}
+        <b>
+            <ins>College</ins>
+        </b>
+        <div><i>{{ q.college }}</i></div>
+        {% endif %}
+
+        {% if q.birthday %}
+        <b>
+            <ins>Birthday</ins>
+        </b>
+        <div><i>{{ q.birthday }}</i></div>
+        {% endif %}
+
+
+
+    </div>
+    <br>
+
+    <!-- edit profile -->
+    <a href="#editScreen">
+        <button class="comment regular_button" style="margin:5% 0% 0% 14%;width:70%;">Edit Profile</button>
+    </a>
+
+</div>
+
+<!-- navbar -->
+
+<div class="col-10 nav" id="myTopnav">
+    <a class="active" href="#">
+        <form method="post">{% csrf_token %}
+            <button class="nav_button" name="Logout" type="submit" value="Logout">Logout</button>
+        </form>
+    </a>
+    <a>
+        <form action="{% url 'blog:friendprofile' q.username  %}" method="post">{% csrf_token %}
+            <button class="nav_button" name="profile" type="submit" value="Profile">Profile</button>
+        </form>
+    </a>
+
+    <a href="{% url 'blog:addfriend' %}">Friends</a>
+    <a href="{% url 'blog:note' %}">Notification</a>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+    <form action="{% url 'blog:profile' %}" class="nav_input" method="POST">
+        {% csrf_token %}
+        <input  name="s" class="fas"  required type="search" placeholder="search...">
+        <button name="search" style="margin-left:5%;" type="submit">search</button>
+    </form>
+
+
+</div>
+<div class="col-10 feed" style="height:615px;overflow:hidden;">
+    <!-- write status -->
+
+    <div class="write_status_area"
+         style="position:fixed;width:100%;height:20px;vertical-align:center;margin-bottom:2%; padding:0.5% 0% 1% 4%;background-color:transparent;">
+        <a href="#loginScreen">
+            <button class="comment" style="border-radius:10px;">Write status</button>
+        </a>
+    </div>
+
+    <!--each and every status -->
+    <div class="col-6 feed" style="margin-top:4%;height:600px;position:relative;">
+        {% for i in s1 %}
+        <div class="col-11 status" style="margin-bottom:-2.8%;">
+            <div class="col-12 status_header">
+                {% if i.img %}
+
+                {% cloudinary i.img format="jpg" width=1000 height=1000 crop="fill" class="m"  %}
+
+<!--                <img class="m" src="{{ i.img.url }}">-->
+                {% else %}
+                <img class="m" src="{% static 'image/proicon.jpg' %}">
+                {% endif %}
+                <small class="a">
+                    <a href="{% url 'blog:friendprofile' i.u %}">
+                        {{ i.np }}
+                    </a>
+                </small>
+                <b>|</b>
+                <small class="a">{{ i.sdate   }} {{ i.day }}</small>
+                <b> | </b>
+                <small class="a">{{i.stime }}</small>
+                <b> | </b>
+                {% if i.user.username == q.username %}
+                <div style="float:right;margin:-10px 80px -50px 5px;padding:0;" class="tooltip">
+                    <form  method="post">{% csrf_token %}
+                        <button type="submit" style="background:none;outline:none;border:none;font-size:20px;"  name="delete" class="fa" value="{{ i.id }}">&#xf056;</button>
+                    </form>
+                    <div style="top:10%;width:100px;left:90%;height:50px;background-color:white;color:black;padding:0px;margin:1%;" class="tooltiptext">
+                        <p>delete</p>
+                    </div>
+
+
+                </div>
+<!--                <div style="float:right;" class="ddown">-->
+<!--                <button type="submit"  style="background:none;outline:none;border:none;margin:3px 150px 3px 0px;" class="fa dbtn">&#xf142;</button>-->
+<!--                            <div style="top:10px;left:390px;width:150px;height:50px;" class="ddown-content">-->
+
+<!--                            <a><form  method="post">{% csrf_token %}-->
+<!--                              <button type="submit" style="background:none;outline:none;border:none;"  name="delete" value="{{ i.id }}">delete</button>-->
+<!--                            </form></a>-->
+<!--                            <a><form  method="post">{% csrf_token %}-->
+<!--                              <button type="submit" style="background:none;outline:none;border:none;"  name="delete" value="{{ i.id }}">delete</button>-->
+<!--                           </form></a>-->
+<!--                            </div>-->
+<!--                    </div>-->
+
+
+
+
+<!--                <small class="a">-->
+<!--                    <div class="setdown">-->
+<!--                        <button class="settings fa fa-gear" onclick="myFunction()"></button>-->
+<!--                        <div class="setdown-content" id="myDropdown2">-->
+<!--                            <a href="#home">Edite</a>-->
+<!--                            <a href="#about">Delete</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </small>-->
+                {% endif %}
+            </div>
+            {% if i.caption %}
+            <div class="col-11 status_image_caption">
+                <div style="word-wrap: break-word;" class="intro"><p>{{ i.caption }}</p></div>
+            </div>
+            {% else %}
+            <div class="col-11 status_image_caption" style="height:0%;">
+
+            </div>
+
+
+            {% endif %}
+            {% if i.profile_pic %}
+            {% if i.cover %}
+            <div class="col-12 status_bottom"
+                 style="background:url({{ i.cover.url }}) center;background-repeat:no-repeat;height:300px;">
+                <a target="_blank" href="{{ i.profile_pic.url }}">
+				{% cloudinary i.profile_pic format="jpg" width=1000 height=1000 crop="thumb" gravity=face class="status_profile_image b profile_icon" style="height:200px;width:200px;object-fit:cover;margin-top:10%;" %}
+
+                </a>
+<!--                <img class="status_profile_image b profile_icon" src="{{ i.profile_pic.url }}"-->
+<!--                     style="height:200px;width:200px;object-fit:cover;margin-top:10%;">-->
+            </div>
+            {% else %}
+            <div class="col-12 status_bottom" style="background:url({% static 'image/bg6.jpg' %});height:300px;">
+<!--                <img class="status_profile_image" src="{{ i.profile_pic.url }}"-->
+<!--                     style="height:200px;width:200px;object-fit:cover;margin-top:10%;">-->
+            <a target="_blank" href="{{ i.profile_pic.url }}">
+                {% cloudinary i.profile_pic format="jpg" width=1000 height=1000 crop="fill" class="status_profile_image b profile_icon" style="height:200px;width:200px;object-fit:cover;margin-top:10%;" %}
+
+            </a>
+            </div>
+            {% endif %}
+            {% endif %}
+
+            {% if i.timeline_pic %}
+            <div class="col-12 status_bottom">
+<!--                {% cloudinary i.timeline_pic format="jpg" width=500 height=500 crop=thumb gravity=face  style="width:100%;max-height:100%;object-position:top;object-fit:cover;" %}-->
+            <a target="_blank" href="{{ i.timeline_pic.url }}">
+                <img src="{{ i.timeline_pic.url }}" style="width:100%;object-position:top;object-fit:cover;"></a>
+            </div>
+            {% endif %}
+            {% if i.video %}
+                <video style="margin:auto;outline:none;" width="100%;" height="400" controls >
+                <source  src="{{i.video.url}}" type="video/mp4">
+<!--                {% cloudinary i.video.url format="video/mp4" width=400 height=400  %}-->
+
+
+                </video>
+            {% endif %}
+
+
+            {% if i.cover_pic %}
+            <div class="col-12 status_bottom">
+                <a target="_blank" href="{{ i.cover_pic.url }}">
+                <img class="" src="{{ i.cover_pic.url }}"
+                     style="width:100%;min-height:350px;object-position:top;object-fit:cover;"></a>
+            </div>
+            {% endif %}
+
+            {% if i.post %}
+            <div class="col-11 status_bottom intro" style="padding-bottom:10%;word-wrap: break-word;">{{ i.post }}</div>
+            {% endif %}
+        </div>
+
+        <!-- like coment share -->
+        <div class="col-11" style="margin:auto;">
+            {% for j in i.response_set.all %}
+            <form action="{% url 'blog:profile' %}" method="post">{% csrf_token %}
+                <button class="comment1"   name="i" value="{{ i.id }}">{{ j.like }} Like</button>
+            </form>
+            <form action="{% url 'blog:profile' %}" method="post">
+                <button class="comment1">sahre</button>
+            </form>
+            <button class="comment">comment</button>
+
+            <!-- COMMENT -->
+
+            <div class="content">
+
+
+                <div class="Liker_tooltip">
+
+                    <p> {{ j.like }} people like here</p>
+
+                    <!-- THE USERS WHO LIKE THE POST -->
+                    {% for j1 in j.liker_set.all %}
+
+
+                    <div class="Liker_tooltiptext" style="float:left;clear:right;">
+
+                        <div>
+                            <img class="m" src="{{ j1.likerimage.url }}">
+                            <small class="a"><a href="{% url 'blog:friendprofile' j1.liker.username %}">{{ j1.liker.name
+                                }}</a></small>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                    <!-- end tooltip -->
+                </div>
+                {% for j in i.comments_set.all %}
+                <div style="word-wrap: break-word;" class="comment_user">
+
+                    {% if j.compro %}
+                    {% cloudinary j.compro format="jpg" width=500 height=500 crop=thumb gravity=face class="m" %}
+<!--                    <img class="m" src="{{ j.compro.url }}">-->
+                    {% else %}
+                    <img class="m" src="{% static 'image/proicon.jpg' %}">
+                    {% endif %}
+                    <b>
+                        <a href="{% url 'blog:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>
+                        commented on <a href="{% url 'blog:friendprofile' i.u %}">{{ i.np }}</a>'s post
+
+                    </b>
+
+                    <br>
+                    <!--here comment  -->
+                    <p>{{ j.comment }}</p> <i><small>{{ j.cdate }} at {{ j.ctime }}</small></i>
+
+                    <button class="replies">replies</button>
+
+                    <!-- reply section -->
+
+                    <div class="content">
+                        <br>
+                        <br>
+                        <!-- reply -->
+                        {% for j1 in j.replies_set.all %}
+                        <div style="word-wrap: break-word;" class="comment_user">
+
+                            {% if j1.reppro %}
+                            {% cloudinary j1.reppro format="jpg" width=500 height=500 crop=thumb gravity=face class="m" %}
+<!--                            <img class="m" src="{{ j1.reppro.url }}">-->
+                            {% else %}
+                            <img class="m" src="{% static 'image/proicon.jpg' %}">
+                            {% endif %}
+                            <b>
+                                <a href="{% url 'blog:friendprofile' j1.replier_username %}">{{ j1.replier_name }}</a>
+                                replied on <a href="{% url 'blog:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>'s comment
+
+
+                                {% if j1.replier.username == q.username %}
+                                <form method="post">{% csrf_token %}
+                                    <button name="delete_reply" type="submit" value="{{ j1.id }}">delete</button>
+                                </form>
+                                {% endif %}
+                            </b>
+                            <br>
+                            <!-- reply here -->
+
+                            <p>{{ j1.text }}</p> <i><small>{{ j1.rdate }} at {{ j1.rtime }}</small></i>
+
+                        </div>
+                        {% endfor %}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- reply form -->
+                            <br>
+
+                            <p><textarea class="col-12" name="p" placeholder="reply..."
+                                         style="border-radius:10px;margin-top:1%;outline:none;"></textarea></p>
+                            <br>
+                            <button name="j.id" style="margin-bottom:5%;outline:none;" type="submit" value="{{ j.id}}">
+                                reply
+                            </button>
+                        </form>
+                        <!-- END REPLY SECTION CONTENT -->
+
+                    </div>
+
+
+                </div>
+                {% endfor %}
+                <form method="post">
+                    {% csrf_token %}
+                    <p>{{ j.commentator.name }}<textarea class="col-12" name="p" placeholder="write comment..."
+                                                         style="border-radius:10px;outline:none;">{{ j.commentator.name }}</textarea>
+                    </p>
+                    <br>
+                    <button name="i.id" style="margin-bottom:5%;outline:none;" type="submit" value="{{ i.id }}">comment
+                    </button>
+                </form>
+                <!-- end content	 -->
+
+            </div>
+
+            <!-- COMMENT SECTION END -->
+            {% endfor %}
+        </div>
+
+
+        <!-- end response -->
+        <br>
+
+        {% endfor %}
+
+        <!-- if status has image then status bottom will be col-12 -->
+        <br>
+        <br>
+
+    </div>
+
+
+    <!-- friend section -->
+    <div class="col-6 friend_section feed" style="background-color:#E9F2F9;">
+
+        <div class="col-7 status_writting feed" style="background-color:#0AF5CE;height:130px;position:fixed;">
+            <br>
+            <br>
+
+        </div>
+        <div class="col-3" style="margin:8% 1% 0% -0.5%; position:fixed;padding:0% 2% 0% 1%;">
+            <br>
+            <button class="comment" style="margin:5% 0% 0% 14%;border-radius:100px; text-align:center;width:70%">add
+                social Link
+            </button>
+            <div class="content" style="width:88%;">
+                <form method="post">
+                    {% csrf_token %}
+                    <br>
+                    {% if link.faceebook %}
+                    <textarea name="facebook" placeholder="Facebook" rows="1" style="margin-left:15%;" type="text">{{ link.faceebook }}</textarea>
+                    {% else %}
+                    <textarea name="facebook" placeholder="Facebook" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if link.instragram %}
+                    <textarea name="instragram" placeholder="Instragram" rows="1" style="margin-left:15%;" type="text">{{ link.instragram }}</textarea>
+                    {% else %}
+                    <textarea name="instragram" placeholder="Instragram" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if link.twitter %}
+                    <textarea name="twitter" placeholder="Twitter" rows="1" style="margin-left:15%;" type="text">{{ link.twitter }}</textarea>
+                    {% else %}
+                    <textarea name="twitter" placeholder="Twitter" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+                    {% endif %}
+                    <br>
+                    <br>
+
+                    {% if link.linkedin %}
+                    <textarea name="linkedin" placeholder="Linkedin" rows="1" style="margin-left:15%;" type="text">{{ link.linkedin }}</textarea>
+                    {% else %}
+                    <textarea name="linkedin" placeholder="Linkedin" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if link.snapchat %}
+                    <textarea name="snapchat" placeholder="snapchat-ghost" rows="1" style="margin-left:15%;"
+                              type="text">{{ link.snapchat }}</textarea>
+                    {% else %}
+                    <textarea name="snapchat" placeholder="snapchat-ghost" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if link.youtube %}
+                    <textarea name="youtube" placeholder="youtube" rows="1" style="margin-left:15%;" type="text">{{ link.youtube }}</textarea>
+
+                    {% else %}
+                    <textarea name="youtube" placeholder="youtube" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+
+                    {% endif %}
+                    <br>
+                    <br>
+                    {% if link.github %}
+                    <textarea name="github" placeholder="Github" rows="1" style="margin-left:15%;" type="text">{{ link.github }}</textarea>
+                    {% else %}
+                    <textarea name="github" placeholder="Github" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+
+                    {% endif %}
+                    <br>
+                    <br>
+
+                    {% if q.email %}
+                    <textarea name="Google" placeholder="email" rows="1" style="margin-left:15%;" type="text">{{ q.email }}</textarea>
+                    {% else %}
+                    <textarea name="Google" placeholder="email" rows="1" style="margin-left:15%;"
+                              type="text"></textarea>
+
+                    {% endif %}
+                    <br>
+                    <br>
+
+                    <button name="link" style="margin-left:35%;" type="submit">Add link</button>
+                </form>
+
+            </div>
+            <button class="regular_button" style="margin:5% 0% 10% 14%;width:70%;">Social media Link</button>
+            <br>
+            {% if q.email %}
+            <a class="fa fa-google" href="{{ q.email }}"></a>
+            {% endif %}
+            {% if link.faceebook %}
+            <a class="fa fa-facebook" href="{{ link.faceebook }}"></a>
+            {% endif %}
+            {% if link.twitter %}
+            <a class="fa fa-twitter" href="{{ link.twitter }}"></a>
+            {% endif %}
+
+            {% if link.linkedin %}
+            <a class="fa fa-linkedin" href="{{ link.linkedin }}"></a>
+            {% endif %}
+            {% if link.youtube %}
+            <a class="fa fa-youtube" href="{{ link.youtube }}"></a>
+            {% endif %}
+            {% if link.instragram %}
+            <a class="fa fa-instagram" href="{{ link.instragram }}"></a>
+            {% endif %}
+            {% if link.snapchat %}
+            <a class="fa fa-snapchat" href="{{ link.snapchat }}"></a>
+            {% endif %}
+            {% if link.github %}
+            <a class="fa fa-github" href="{{ link.github }}"></a>
+            {% endif %}
+
+
+        </div>
+        <ul class="col-5">
+            {% if x %}
+            {% for j in q.friend_set.all %}
+            {% for j1 in x %}
+            {% if j.id != q.id %}
+            {% if j.id == j1.id %}
+
+            <li class="tooltip">
+                {% if j1.profilepicture %}
+                {% cloudinary j1.profilepicture format="jpg" width=1000 height=1000 crop="fill" class="middle" %}
+<!--                <img class="middle" src="{{ j1.profilepicture.url }}">-->
+                {% else %}
+                <img class="middle" src="{% static 'image/proicon.jpg' %}">
+                {% endif %}
+                <small class="a"><a href="{% url 'blog:chats' j.username %}">{{ j.name }}</a></small>
+                <div class="tooltiptext">
+                    <div class="col-6" style="float:left;">
+                        {% if j1.profilepicture %}
+                        {% cloudinary j1.profilepicture format="jpg" width=1000 height=1000 crop="fill" class="image" %}
+<!--                        <img class="image" src="{{ j1.profilepicture.url }}">-->
+                        {% else %}
+                        <img class="image" src="{% static 'image/proicon.jpg' %}">
+                        {% endif %}
+                    </div>
+                    <div class="col-5" style="float:left;height:auto;text-indent:10px;padding-right:1%;">
+                        <p><a href="{% url 'blog:friendprofile' j.username %}">{{ j.name }}</a></p>
+                        <p><a href="http:www.gmail.com">{{ j.email }}</a></p>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+
+
+        </ul>
+    </div>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("comment");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+</script>
+
+<script>
+var coll = document.getElementsByClassName("replies");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+</script>
+<script>
+var coll = document.getElementsByClassName("comment1");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var context = this.nextElementSibling;
+    if (context.style.display === "block") {
+      context.style.display = "none";
+    } else {
+      context.style.display = "block";
+    }
+  });
+}
+
+</script>
+<script>
+var coll = document.getElementsByClassName("btn");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var context1 = this.nextElementSibling;
+    if (context1.style.display === "block") {
+      context1.style.display = "none";
+    } else {
+      context1.style.display = "block";
+    }
+  });
+}
+
+</script>
+
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+</script>
+<script>
+// When the user clicks on div, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+
+</script>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "nav") {
+    x.className += " responsive";
+  } else {
+    x.className = "nav";
+  }
+}
+
+</script>
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+
+</script>
+
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown1").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn1')) {
+  var myDropdown = document.getElementById("myDropdown1");
+    if (myDropdown.classList.contains('show1')) {
+      myDropdown.classList.remove('show1');
+    }
+  }
+}
+
+</script>
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown2").classList.toggle("show-settings");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.settings')) {
+    var dropdowns = document.getElementsByClassName("setdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show-settings')) {
+        openDropdown.classList.remove('show-settings');
+      }
+    }
+  }
+}
+
+</script>
+</body>
+</html>

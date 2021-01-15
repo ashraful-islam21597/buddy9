@@ -1,0 +1,62 @@
+.nbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.nbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.ddown {
+  float:left;
+  overflow: hidden;
+
+}
+
+.ddown .dbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.nbar a:hover, .ddown:hover .dbtn {
+ z-index:1;
+}
+
+.ddown-content {
+  display: none;
+  position: absolute;
+
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+
+
+}
+
+.ddown-content a {
+  float: none;
+  color:white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.ddown-content a:hover {
+  background-color: #ddd;
+}
+
+.ddown:hover .ddown-content {
+  display: block;
+}

@@ -1,0 +1,37 @@
+{% load static %}
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification</title>
+
+
+	<link rel="icon"  href="{% static 'image/icon.png' %}">
+    <style>
+        .mydiv {
+        display: block;
+        background-color:powderblue;
+        }
+        .mydiv br {
+        display: none;
+        }
+    </style>
+</head>
+<body>
+<p>{{ q.name }} </p>
+{% if q %}
+{% for i in q.notification_set.all|dictsortreversed:"updated_at" %}
+<div class="mydiv">
+
+  <small><ul><li style="list-style-type:none;padding:1%;"><a> {{ i.ins }} </a>{{ i.message }}  {{ i.updated_at }}</li></ul></small>
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        <button class="f" type="submit" name="i"  value="{{ i.ins }}">accept</button>-->
+<!--    </form>-->
+</div>
+
+{% endfor %}
+{% endif %}
+
+</body>
+</html>

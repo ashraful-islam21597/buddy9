@@ -1,0 +1,127 @@
+{% load static %}
+{% load cloudinary %}
+<! DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+    <link  rel="stylesheet" type="text/css" href="{% static 'My_Buddy/chat.css' %}">
+
+	<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
+</head>
+<body>
+	<div style="margin:0 10%;" class="container">
+	<div style="margin:0;" class="box1 col-8">
+		<div class="chat_header">
+            {% if owner2.profileimage %}
+			<img src="{{ owner2.profileimage.url }}" class="m">
+            {% else %}
+                <img class="m" src="{% static 'image/proicon.jpg' %}">
+            {% endif %}
+
+		<b style="font-size:20px;" class="a"><a>{{ owner2.name }}</a></b>
+			<form  style="float:right;" method="post">
+    {% csrf_token %}
+    <input type="submit" name="back1" value="back">
+</form>
+		</div>
+		<div class="chat_box">
+            {% for i in owner1.chatroom_set.all %}
+                {% for j in i.allmessages_set.all %}
+                {% if i.chatname == owner2.username and j.usermessage.username == owner1.username or j.usermessage.username == owner2.username %}
+                {% if j.usermessage.username == owner1.username %}
+
+				{% if j.messagepic %}
+					<div style="float:right;" class="my_message_box">
+<!--						{% cloudinary j.messagepic format="jpg" width=100 height=100 crop="fill" style="height:300px;width:300px;" %}-->
+					<img class="my_message"style="max-height:200px;width:auto;"src="{{ j.messagepic.url }}">
+
+					</div>
+
+				{% else %}
+
+
+                <div class="my_message_box">
+					<!-- <img style="float:right;"src="ash.jpg" class="m"> -->
+					<p style="word-wrap: break-word;" class="my_message" >{{ j.message }}</p>
+				</div>
+				{% endif %}
+
+            {% else %}
+
+
+
+				<div style="" class="friend_message_box">
+                    {% if j.chatterpic %}
+					<img  style="float:left;margin-top:-1px" src="{{ j.chatterpic.url }}" class="m">
+
+                    {% else %}
+                        <img  style="float:left;" class="m" src="{% static 'image/proicon.jpg' %}">
+                    {% endif %}
+					{% if j.messagepic %}
+					<div class="friend_message_box">
+<!--						{% cloudinary j.messagepic format="jpg" width=1000 height=1000 crop="fill" style="height:300px;width:300px;" %}-->
+						<img style="max-height:200px;width:auto;" src="{{ j.messagepic.url }}" class="friend_message">
+
+					</div>
+
+					{% else %}
+
+					<div style="word-wrap:break-word; width:100%;" >
+
+					<p style="" class="friend_message">{{ j.message }}</p>
+						</div>
+					{% endif %}
+
+				</div>
+
+				{% endif %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+		</div>
+		<div class="send_box">
+			<div>
+				<hr style="margin:0;">
+				<div style="float:left;">
+					<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input  type="file" id="files" class="hidden" name="messageimage">
+					<br>
+					<button type="submit" name="sendpic">Send pic</button>
+					</form>
+					</div>
+				<form method="post">
+                    {% csrf_token %}
+
+				<div style="height:80px;width:50%;margin-left:-10%;float:left;">
+
+					<textarea name="message"></textarea>
+
+				</div>
+				<div style="height:80px;float:left;width:15%;">
+					<button type="submit" name="send" value="send" class="send_button">send</button>
+
+				</div>
+				</form>
+
+
+			<!-- <form style="margin-bottom:35px;">
+				<textarea style="width:70%;margin-top:3%;"></textarea><button style="height:30px;margin-bottom:5%;">send</button>
+			</form> -->
+			</div>
+
+		</div>
+	</div>
+
+	</div>
+
+
+
+</body>
+
+
+
+
+
+</html>

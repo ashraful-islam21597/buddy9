@@ -86,7 +86,7 @@
 				<div style="float:left;">
 					<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
-					<input  type="file" id="files" class="hidden" name="messageimage">
+					<input  type="file" id="files" class="hidden" name="messageimage" required>
 					<br>
 					<button type="submit" name="sendpic">Send pic</button>
 					</form>

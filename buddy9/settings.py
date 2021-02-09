@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'buddy9.wsgi.application'
 DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'new_db_of_buddy9',
+        'NAME': 'mybuddy',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',

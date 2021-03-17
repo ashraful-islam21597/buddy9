@@ -278,6 +278,53 @@ def profile(request):
             link.github = github
             link.save()
             return redirect('/')
+        elif 'share' in request.POST:
+            j=request.POST['share']
+            q1 = status.objects.get(id=j)
+            if q1.timeline_pic:
+                #user_timeline_photo.save()
+                #c=CloudinaryImage(str(timelinepic)).image()
+                cap=q.name+ " shared "+q1.user.name+"`s timeline photo"
+                pro = status(user_id=q.id,shared_caption=cap, caption=q1.caption,  timeline_pic=q1.timeline_pic)
+                #pro = status(user_id=q.id, caption=caption, timeline_pic=c)
+                pro.save()
+                res = Response(status_id=pro.id, like=0)
+                res.save()
+                return redirect('/')
+            if q1.profile_pic:
+                cap=q.name+ " shared "+q1.user.name+"`s profile photo"
+                sta = status(user_id=q.id,shared_caption=cap, profile_pic=q1.profile_pic)
+                sta.save()
+                u = profilephotos(userpic_id=q.id, profile_pic=q1.profile_pic)
+                #q.profilepicture = user_profile_photo.pro_picture
+                #q.save()
+                u.save()
+                res = Response(status_id=sta.id, like=0)
+                res.save()
+                return redirect('/')
+            if q1.cover_pic:
+                cap=q.name+ " shared "+q1.user.name+"`s cover photo"
+                sta = status(user_id=q.id,shared_caption=cap, cover_pic=q1.cover_pic)
+                sta.save()
+                u = coverphotos(userpic_id=q.id, cover_pic=q1.cover_pic)
+                #q.coverpicture = user_cover_photo.cover_picture
+                #q.save()
+                u.save()
+                res = Response(status_id=sta.id, like=0)
+                res.save()
+                return redirect(request.META['HTTP_REFERER'],{'link': link})
+
+            print(q1.user)
+
+            #posts = request.POST['post']
+            pro = status(user_id=q.id, post=q1.post)
+            pro.save()
+            res = Response(status_id=pro.id, like=0)
+            res.save()
+            return redirect('/')
+
+
+            #return redirect('/')
         elif 'k1' in request.POST:
             k = request.POST['k1']
             q1 = Profile.objects.get(username=request.POST['k1'])

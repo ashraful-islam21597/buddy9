@@ -175,6 +175,7 @@ class status(models.Model):
     user=models.ForeignKey(Profile,on_delete=models.CASCADE)
     post=models.TextField(max_length=10000)
     caption=models.TextField(max_length=10000)
+    shared_caption=models.TextField(max_length=10000)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     sdate = models.DateField(auto_now=True)

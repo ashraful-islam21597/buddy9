@@ -1,0 +1,2906 @@
+{% load static %}
+{% load cloudinary %}
+<! DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here"/>
+
+    <!------------- Neccesary CSS file -------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'My_Buddy/style.css' %}">
+    <title>My Buddy</title>
+</head>
+
+<body>
+<!---------------------------------- Navigation Section Start ----------------------------->
+<nav class="navbar navbar-expand bg-white navbar-light text-center fixed-top">
+    <div class="container">
+        <a href="index.html" class="navbar-brand mr-5"> My <span class="app-name text-light bg-primary p-1">Buddy</span></a>
+        <div class="search-box mr-auto">
+            <input class="search-input" type="text" placeholder="Search">
+            <a class="text-secondary" href="#">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+        <div class="main-item">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link d-flex flex-column active" href="index.html">
+                        <i class="fas fa-home customise"></i>
+                        <span class="notify"><i class="fas fa-dot-circle"></i></i></span>
+                        <span class="place-name">Home</span>
+                        <span></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex flex-column" href="mynetwork.html">
+                        <i class="fa fa-hands-helping customise"></i>
+                        <span class="notify">99+</span>
+                        <span class="place-name">My Network</span>
+                        <span></span>
+                    </a>
+                </li>
+                <li id="messageing" class="nav-item">
+                    <a class="nav-link d-flex flex-column">
+                        <i class="fas fa-envelope customise"></i>
+                        <span class="notify">1</span>
+                        <span class="place-name">Messageing</span>
+                        <span></span>
+                    </a>
+                </li>
+                <li id="notifications" class="nav-item">
+                    <a class="nav-link d-flex flex-column">
+                        <i class="fas fa-bell customise"></i>
+                        <span class="notify">1</span>
+                        <span class="place-name">Notifications</span>
+                        <span></span>
+                    </a>
+                </li>
+                <li id="me" class="nav-item">
+                    <a class="nav-link d-flex flex-column">
+                        <!--                        <img src="img/me.jpg" alt="a person" class="img-fluid dp" style="width: 24px; border-radius: 50%;">-->
+                        {% if q %}
+                        {% if q.profilepicture %}
+                        {% cloudinary q.profilepicture format="jpg" width=1000 height=1000 crop="fill" alt="a person" class="img-fluid dp" style="width: 24px; border-radius: 50%;" %}
+
+                        <!--                                <img src="img/me.jpg" class="img-fluid dp"-->
+                        <!--                                     style="width: 72px; border-radius: 50%; margin: -42px auto 12px;" alt="profile picture">-->
+                        {% else %}
+                        <img src="{% static 'image/proicon1.jpg' %}" alt="a person" class="img-fluid dp"
+                             style="width: 24px; border-radius: 50%;">
+                        {% endif %}
+                        {% endif %}
+                        <span class="place-name">Me <i class="fa fa-caret-down"></i></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex flex-column" href="#">
+                        <i class="fas fa-calendar customise"></i>
+                        <span class="notify">1</span>
+                        <span class="place-name">Calendar</span>
+                        <span></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!---------------------------------- Navigation Section End ------------------------------->
+
+<!------------------------------ Message Dropdown Section Start --------------------------->
+<section id="message" class="over-page d-none">
+    <div class="card text-dark">
+        <div class="card-header d-flex justify-content-between">
+            <h3>Messages</h3>
+            <!-- Three dot option -->
+            <div class="status-option three-dot-option d-flex justify-content-center align-items-center">
+                <div class="status-option-design inner-circle">
+            <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+            <div class="options m-0">
+              <div class="save hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-bookmark"></i>
+                </div>
+                <div class="save-details my-auto pr-2">
+                  <p class="m-0">Save</p>
+                  <small class="text-muted m-0">Save for later</small>
+                </div>
+              </div>
+              <div class="copy-link hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="fas fa-link"></i>
+                </div>
+                <div class="copy-link-details my-auto pr-2">
+                  <p class="m-0">Copy Link</p>
+                </div>
+              </div>
+              <div class="notification-for-post hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-bell"></i>
+                </div>
+                <div class="notification-for-post-details my-auto pr-2">
+                  <p class="m-0">Turn on notification for this post</p>
+                </div>
+              </div>
+              <div class="report hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-flag"></i>
+                </div>
+                <div class="report-details my-auto pr-2">
+                  <p class="m-0">Report this post</p>
+                </div>
+              </div>
+            </div>' data-placement="bottom" data-trigger="click">
+              <i class=" text-muted fas fa-ellipsis-h customise"></i>
+            </span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Single message -->
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a>
+                            <p class="m-0"><small>kire ki ovostha?</small></p>
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!------------------------------- Message Dropdown Section End ---------------------------->
+
+<!---------------------------- Notification Dropdown Section Start ------------------------>
+<section id="notification" class="over-page d-none">
+    <div class="card text-dark">
+        <div class="card-header d-flex justify-content-between">
+            <h3>Notifications</h3>
+            <!-- Three dot option -->
+            <div class="status-option three-dot-option d-flex justify-content-center align-items-center">
+                <div class="status-option-design inner-circle">
+            <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+            <div class="options m-0">
+              <div class="save hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-bookmark"></i>
+                </div>
+                <div class="save-details my-auto pr-2">
+                  <p class="m-0">Save</p>
+                  <small class="text-muted m-0">Save for later</small>
+                </div>
+              </div>
+              <div class="copy-link hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="fas fa-link"></i>
+                </div>
+                <div class="copy-link-details my-auto pr-2">
+                  <p class="m-0">Copy Link</p>
+                </div>
+              </div>
+              <div class="notification-for-post hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-bell"></i>
+                </div>
+                <div class="notification-for-post-details my-auto pr-2">
+                  <p class="m-0">Turn on notification for this post</p>
+                </div>
+              </div>
+              <div class="report hover-effect d-flex">
+                <div class="option-icon">
+                  <i class="far fa-flag"></i>
+                </div>
+                <div class="report-details my-auto pr-2">
+                  <p class="m-0">Report this post</p>
+                </div>
+              </div>
+            </div>' data-placement="bottom" data-trigger="click">
+              <i class=" text-muted fas fa-ellipsis-h customise"></i>
+            </span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Single notification -->
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hover-effect single-block d-flex justify-content-between p-3">
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <a href="#">
+                            <!-- link friends profile -->
+                            <img src="img/uzzal.jpg" class="img-fluid"
+                                 style="width: 50px; height: 50px; border-radius: 100%;"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <a href="#" class="text-dark m-0">
+                                <!-- link My or friends profile -->
+                                <b>Uzzal Hossain</b>
+                            </a> like your post
+                        </div>
+                        <div class="text-muted d-flex">
+                            <div>
+                                <small>2 hours ago </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Three dot option -->
+                <div class="three-dot-option d-flex justify-content-center align-items-center">
+                    <div class="inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!----------------------------- Notification Dropdown Section End ------------------------->
+
+<!--------------------------------- Me Dropdown Section Start ----------------------------->
+<section id="meDropdown" class="over-page d-none">
+    <div class="card text-dark">
+        <div class="basic-info">
+            <div class="d-flex">
+                <div class="m-3">
+                    <a href="#">
+                        <!--link profile -->
+<!--                        <img src="img/me.jpg" class=" " style="width: 50px; height: 50px; border-radius: 100%;"-->
+<!--                             alt="profile picture">-->
+                        {% if q %}
+                        {% if q.profilepicture %}
+                        {% cloudinary q.profilepicture format="jpg" width=1000 height=1000 crop="fill" class=" " style="width: 50px; height: 50px; border-radius: 100%;" %}
+
+                        <!--                                <img src="img/me.jpg" class="img-fluid dp"-->
+                        <!--                                     style="width: 72px; border-radius: 50%; margin: -42px auto 12px;" alt="profile picture">-->
+                        {% else %}
+                        <img src="{% static 'image/proicon1.jpg' %}" alt="a person" class=" " style="width: 50px; height: 50px; border-radius: 100%;">
+                        {% endif %}
+                        {% endif %}
+
+
+
+
+                    </a>
+                </div>
+                <div class="my-auto">
+                    <a href="#">
+                        <!--link profile name -->
+                        <p class="m-0 text-dark">
+                            <strong>{{ q.name }}</strong>
+                        </p>
+                    </a>
+                    <p class="occupation"><small>{{ q.job }}</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-3">
+            <a href="profile.html" class="btn btn-outline-primary btn-sm btn-block view-profile ">View Profile</a>
+        </div>
+        <div class="container mb-3">
+            <p class="m-0 text-dark">
+                <strong>Account</strong>
+            </p>
+            <div class="d-flex flex-column">
+                <a href="" class="text-dark"><small>Settings and Privacy</small></a>
+                <!--link Settings and Privacy -->
+                <a href="" class="text-dark"><small>Help</small></a>
+                <!--link Help -->
+                <a href="" class="text-dark"><small>Language</small></a>
+                <!--link Language -->
+            </div>
+        </div>
+        <div class="container mb-3">
+            <p class="m-0 text-dark">
+                <strong>Mannage</strong>
+            </p>
+            <div class="d-flex flex-column">
+                <a href="" class="text-dark"><small>Posts & Activity </small></a>
+                <!--link Settings and Privacy -->
+                <a href="sign-in.html" class="text-dark"><small>Log Out</small></a>
+                <!--link Language -->
+            </div>
+        </div>
+    </div>
+</section>
+<!---------------------------------- Me Dropdown Section End ------------------------------>
+
+<!------------------------------=--- Create Post Modal Start ------------------------------>
+<section id="write-post" class="write-post-modal over-page-modal d-none">
+    <div class="content">
+        <div class="modals-header d-flex justify-content-between">
+            <h4 class="modal-title">Create a post</h4>
+            <button id="close-write-post" class="close">&times;</button>
+        </div>
+        <hr>
+        <div class="modals-body">
+            <div class="dp-name-privacy d-flex">
+                <div class="dp">
+                    <img src="img/me.jpg" class="img-fluid dp" style="width: 50px; height: 50px; border-radius: 50%;"
+                         alt="profile picture">
+                </div>
+                <div class="name-privacy-button mx-2">
+                    <div class="name">
+                        <p class="text-dark m-0">
+                            <strong>Md Imam Hasan</strong>
+                        </p>
+                    </div>
+                    <div class="privacy-button">
+                        <button id="privacy-open-button" class="btn btn-outline-secondary btn-sm">
+                            <small class="px-2">
+                                <i class="fas fa-globe-asia pr-1" title="Public"></i> Anyone <i
+                                    class="fa fa-caret-down p-1"></i>
+                            </small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <form action="">
+                <div>
+                    <div class="post-content scrollable">
+                        <div class="content-area">
+                            <div class="text-area">
+                  <textarea name="" id="" cols="76" rows="2" onkeypress="autoGrow(this)" onkeydown="autoGrow(this)"
+                            placeholder="What do you want to talk about?"></textarea>
+                            </div>
+                            <div id="dropArea" class="img-video-area">
+                                <h3 id="dragText" class="text-center text-muted d-none mt-2">Drop Photos or Videos</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="post-options-w-button d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="post-catagory d-flex justify-content-around">
+                                <button id="btn-file11" class="btn btn-light">
+                                    <i class="fas fa-images" style="font-size: 18px; color: #70B5F9;"></i> Photo
+                                </button>
+                                <input type="file" id="file11" hidden>
+                                <button id="btn-file22" class="btn btn-light">
+                                    <i class="fab fa-youtube" style="font-size: 18px; color: #E7A33E;"></i> Video
+                                </button>
+                                <input type="file" id="file22" hidden>
+                                <button class="btn btn-light">
+                                    <i class="fas fa-calendar-week" style="font-size: 18px; color: #7FC15E;"></i> Event
+                                </button>
+                            </div>
+                            <div class="comment-privacy-button">
+                                <button id="comment-privacy-open-button" class="btn btn-outline-secondary btn-sm">
+                                    <small class="px-2">
+                                        <i class="far fa-comments pr-1"></i></i> Anyone
+                                    </small>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="post-button">
+                            {% csrf_token %}
+
+                            <button id="post-button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!----------------------------------- Create Post Modal End ------------------------------->
+
+<!------------------------------=----- Privacy Modal Start -------------------------------->
+<section id="privacy-modal" class="privacy-modal over-page-modal d-none">
+    <div class="content">
+        <div class="modals-header d-flex justify-content-between">
+            <h4 class="modal-title">Who can see your post?</h4>
+            <button id="close-privacy" class="close">&times;</button>
+        </div>
+        <hr>
+        <div class="modals-body">
+            <small class="text-secondary">Your post will be visible on feed, on your profile and in search
+                results</small>
+            <hr>
+            <div class="privacy-options text-dark">
+                <div class="container">
+                    <form action="">
+                        <div class="option">
+                            <input type="radio" id="Public" name="privacy" value="Public">
+                            <label for="Public">
+                                <i class="fas fa-globe-asia" title="Public"></i> Public
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Friends" name="privacy" value="Friends">
+                            <label for="Friends">
+                                <i class="fas fa-user-friends" title="Friends"></i> Friends
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Custome" name="privacy" value="Custome">
+                            <label for="Custome">
+                                <i class="fas fa-user-cog" title="Custome"></i> Custome
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Only-Me" name="privacy" value="Only Me">
+                            <label for="Only-Me">
+                                <i class="fas fa-lock" title="Only Me"></i> Only Me
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="cancel-save-button float-right">
+                <button id="privacy-save-button" class="btn btn-primary">Save</button>
+                <button id="privacy-cancel-button" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!------------------------------------- Privacy Modal End --------------------------------->
+
+<!-------------------------------- Who can comment Modal Start ---------------------------->
+<section id="comment-privacy-modal" class="comment-privacy-modal over-page-modal d-none">
+    <div class="content">
+        <div class="modals-header d-flex justify-content-between">
+            <h4 class="modal-title">Who can comment on your post?</h4>
+            <button id="close-comment-privacy" class="close">&times;</button>
+        </div>
+        <hr>
+        <div class="modals-body">
+            <div class="privacy-options text-dark">
+                <div class="container">
+                    <form action="">
+                        <div class="option">
+                            <input type="radio" id="Public1" name="privacy" value="Public">
+                            <label for="Public1">
+                                <i class="fas fa-globe-asia" title="Public"></i> Public
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Friends1" name="privacy" value="Friends">
+                            <label for="Friends1">
+                                <i class="fas fa-user-friends" title="Friends"></i> Friends
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Custome1" name="privacy" value="Custome">
+                            <label for="Custome1">
+                                <i class="fas fa-user-cog" title="Custome"></i> Custome
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="Only-Me1" name="privacy" value="Only Me">
+                            <label for="Only-Me1">
+                                <i class="fas fa-lock" title="Only Me"></i> Only Me
+                            </label>
+                            <div class="radio-button"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="cancel-save-button float-right">
+                <button id="comment-privacy-save-button" class="btn btn-primary">Save</button>
+                <button id="comment-privacy-cancel-button" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!--------------------------------- Who can comment Modal End ----------------------------->
+
+<!------------------------------------- New DP Modal Start -------------------------------->
+<section id="new-dp-modal" class="new-dp-modal status-over-page-modal">
+
+</section>
+<!-------------------------------------- New DP Modal End --------------------------------->
+
+<!------------------------------ Main Content Section Start ------------------------------->
+<section id="main-content" class="mt-5 pt-4">
+    <div class="container">
+        <!-------------------------- Three main rail --------------------------------->
+        <div class="row">
+            <!---------------------- Left rail --------------------------->
+            <aside class="   left-rail">
+                <div class="card mb-4">
+                    <div class="cover"></div>
+                    <!-- Basic Info of self account -->
+                    <div class="basic-info text-center">
+                        <a href="profile.html">
+                            <!--link profile -->
+                            <div class="dp-name">
+                                {% if q %}
+                                {% if q.profilepicture %}
+                                {% cloudinary q.profilepicture format="jpg" width=1000 height=1000 crop="fill" class="img-fluid dp" style="width: 72px; border-radius: 50%; margin: -42px auto 12px;" alt="profile picture" %}
+
+                                <!--                                <img src="img/me.jpg" class="img-fluid dp"-->
+                                <!--                                     style="width: 72px; border-radius: 50%; margin: -42px auto 12px;" alt="profile picture">-->
+                                {% else %}
+                                <img class="img-fluid dp" src="{% static 'image/proicon1.jpg' %}"
+                                     style="width: 72px; border-radius: 50%; margin: -42px auto 12px;"
+                                     alt="profile picture">
+                                {% endif %}
+                                {% endif %}
+                                <p class="name text-dark">
+                                    <strong>{{ q.name }}</strong>
+                                </p>
+                            </div>
+                        </a>
+                        <small class="occupation">{{ q.college }}</small>
+                    </div>
+                    <hr>
+                    <!-- Connections -->
+                    <div class="card-body">
+                        <div class="connections hover-effect mb-1">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link friends -->
+                                    <div class="d-flex text-secondary">
+                                        <div>
+                                            <p class="m-0">Connections</p>
+                                            <p class="m-0"><strong>Grow Your Network</strong></p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <!-- number of connections -->
+                                            <span>19</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="visitors hover-effect ">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link visitors -->
+                                    <div class="d-flex text-secondary">
+                                        <div>
+                                            <p class="m-0">Who Viewed your profile</p>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <!-- number of visitors -->
+                                            <span>7</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- My Items -->
+                    <div class="card-footer">
+                        <div class="my-items">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link my-items -->
+                                    <div class="text-secondary">
+                                        <i class="fas fa-bookmark"></i>
+                                        <p class="d-inline">My Items</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer text-center px-0">
+                    <div>
+                        <a href="" class="text-dark p-2"><small>About</small></a>
+                        <a href="" class="text-dark p-2"><small>Accessibility</small></a>
+                        <a href="" class="text-dark p-2"><small>Help Center</small></a>
+                        <a href="" class="text-dark p-2"><small>Privacy Policy</small></a>
+                        <a href="" class="text-dark p-2"><small>Copyright Policy</small></a>
+                    </div>
+                    <div class="mt-3">
+                        <p><b>My <span class="app-name text-light bg-primary p-1">Buddy</span></b> &copy; 2021</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!---------------------- Core Rail --------------------------->
+            <div class=" core-rail">
+                <!--------------------- Create post ----------------->
+                <div class="create-post bg-light">
+                    <div class="container">
+                        <div class="write-post pt-3">
+                            <button id="btn-post" class="btn btn-dark btn-lg btn-block btn-post">
+                                <i class="far fa-edit"></i> Start a post
+                            </button>
+                        </div>
+                        <div class="post-catagory py-3 d-flex justify-content-around">
+                            <button id="btn-file1" class="btn btn-light">
+                                <i class="fas fa-images" style="font-size: 18px; color: #70B5F9;"></i> Photo
+                            </button>
+                            <input type="file" id="file1" hidden>
+                            <button id="btn-file2" class="btn btn-light">
+                                <i class="fab fa-youtube" style="font-size: 18px; color: #E7A33E;"></i> Video
+                            </button>
+                            <input type="file" id="file2" hidden>
+                            <button class="btn btn-light">
+                                <i class="fas fa-calendar-week" style="font-size: 18px; color: #7FC15E;"></i> Event
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% for i in s1 %}
+
+                <!--------------------- Status Card ----------------->
+                <div class="status-card sc bg-light mt-3">
+                    <!----------------- Status Header ----------------->
+                    <div class="container header py-3">
+                        <div class="status-header d-flex justify-content-between">
+                            <div class="status-owner d-flex">
+                                <div class="status-owner-dp mr-2 pt-1">
+                                    <a href="#">
+                                        <!-- link My or friends profile -->
+                                        {% if i.img %}
+                                        {% cloudinary i.img format="jpg" crop="fill" class="img-fluid" style="width: 44px; height: 44px; border-radius: 100%;" %}
+
+                                        <!--                <img class="m" src="{{ i.img.url }}">-->
+                                        {% else %}
+                                        <img class="img-fluid" style="width: 44px; height: 44px; border-radius: 100%;"
+                                             alt="" src="{% static 'image/proicon1.jpg' %}">
+                                        {% endif %}
+                                        <!--                                        <img src="img/uzzal.jpg" class="img-fluid" style="width: 44px; height: 44px; border-radius: 100%;"-->
+                                        <!--                                             alt="">-->
+                                    </a>
+                                </div>
+                                <div class="status-owner-name-details">
+                                    <div class="status-owner-name">
+                                        <a href="{% url 'UserProfile:friendprofile' i.u %}"
+                                           class="owner-name text-dark m-0">
+                                            <!-- link My or friends profile -->
+                                            {{ i.np }}
+                                        </a>
+                                    </div>
+                                    <div class="status-details text-muted d-flex">
+                                        <div class="status-time">
+                                            <small class="time" id="time">{{ i.date }} at {{i.time }} |</small>
+                                        </div>
+                                        <div class="status-privacy">
+                                            <i class="fas fa-globe-asia customise" title="Public"></i>
+                                            <i class="fas fa-user-friends customise d-none" title="Friends"></i>
+                                            <i class="fas fa-user-cog customise d-none" title="Custome"></i>
+                                            <i class="fas fa-lock customise d-none" title="Only Me"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Three dot option -->
+                            <div class="status-option three-dot-option d-flex justify-content-center align-items-center">
+                                <div class="status-option-design inner-circle">
+                                <span class="d-inline-block" data-toggle="popover" data-html="true"
+                                      data-href-template="true" data-content='
+                    <div class="options m-0">
+                      <div class="save hover-effect d-flex">
+                        <div class="option-icon">
+                          <i class="far fa-bookmark"></i>
+                        </div>
+                        <div class="save-details my-auto pr-2">
+                          <p class="m-0">Save</p>
+                          <small class="text-muted m-0">Save for later</small>
+                        </div>
+                      </div>
+                      <div class="copy-link hover-effect d-flex">
+                        <div class="option-icon">
+                          <i class="fas fa-link"></i>
+                        </div>
+                        <div class="copy-link-details my-auto pr-2">
+                          <p class="m-0">Copy Link</p>
+                        </div>
+                      </div>
+                      <div class="notification-for-post hover-effect d-flex">
+                        <div class="option-icon">
+                          <i class="far fa-bell"></i>
+                        </div>
+                        <div class="notification-for-post-details my-auto pr-2">
+                          <p class="m-0">Turn on notification for this post</p>
+                        </div>
+                      </div>
+                       <div class="report hover-effect d-flex">
+                            <div class="option-icon">
+                                <i class="far fa-flag"></i>
+                            </div>
+                            <div class="report-details my-auto pr-2">
+                                {% if i.user.username == q.username %}
+                                <form  class="m-0" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit"   name="delete"  value="{{ i.id }}">&#xf056;</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>' data-placement="bottom" data-trigger="click">
+                      <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--------------- Status body --------------------->
+                    <div class="status-body">
+                        {% if i.caption %}
+                        <div class="status-dialog px-3">
+
+                            <p class="">{{ i.caption }}</p>
+
+                        </div>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+                        {% if i.profile_pic %}
+                        {% if i.cover %}
+                        <div class="status-picture cover-photo-w-dp">
+                            <img src="{{ i.cover.url }}" class="img-fluid" alt="">
+<!--                            <img id="new-dp1" src="{{ i.profile_pic.url }}" class="img-fluid new-dp" alt="profile picture">-->
+                            {% cloudinary i.profile_pic format="jpg" width=500 height=500 crop=thumb gravity=face  id="new-dp1" class="img-fluid new-dp" alt="profile picture" %}
+                        </div>
+
+
+
+
+<!--                        <div style="background:url({{ i.cover.url }}) center;" class="status-picture">-->
+<!--                            &lt;!&ndash;                            <img src="img/status.jpg" class="img-fluid" alt="">&ndash;&gt;-->
+<!--                            <a target="_blank" href="{{ i.profile_pic.url }}">-->
+<!--                                {% cloudinary i.profile_pic format="jpg" width=1000 height=1000 crop="thumb" gravity=face class="img-fluid" %}-->
+
+<!--                            </a>-->
+
+<!--                        </div>-->
+                        {% else %}
+<!--                        <div style="url({% static 'image/bg6.jpg' %});" class="status-picture">-->
+<!--                            &lt;!&ndash;                            <img src="img/status.jpg" class="img-fluid" alt="">&ndash;&gt;-->
+<!--                            <a target="_blank" href="{{ i.profile_pic.url }}">-->
+<!--                                {% cloudinary i.profile_pic format="jpg" width=1000 height=1000 crop="thumb" gravity=face class="img-fluid" %}-->
+
+<!--                            </a>-->
+
+<!--                        </div>-->
+                        <div class="status-picture cover-photo-w-dp">
+                            <img src="{% static 'image/bg6.jpg' %}" class="img-fluid" alt="">
+<!--                            <img id="new-dp1" src="{{ i.profile_pic.url }}" class="img-fluid new-dp" alt="profile picture">-->
+                            {% cloudinary i.profile_pic format="jpg"  id="new-dp1" class="img-fluid new-dp" alt="profile picture" %}
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% if i.timeline_pic %}
+                        <div class="status-picture">
+
+                            <!--                {% cloudinary i.timeline_pic format="jpg" width=500 height=500 crop=thumb gravity=face  style="width:100%;max-height:100%;object-position:top;object-fit:cover;" %}-->
+                            <a target="_blank" href="{{ i.timeline_pic.url }}">
+<!--                                <img src="{{ i.timeline_pic.url }}" class="img-fluid" alt="">-->
+                                {% cloudinary i.timeline_pic format="jpg" width=500 height=500 crop=thumb gravity=face  style="width:100%;max-height:100%;object-position:top;object-fit:cover;" %}
+                            </a>
+
+                        </div>
+                        {% endif %}
+                        {% if i.cover_pic %}
+                        <div class="status-picture">
+
+                            <!--                {% cloudinary i.timeline_pic format="jpg" width=500 height=500 crop=thumb gravity=face  style="width:100%;max-height:100%;object-position:top;object-fit:cover;" %}-->
+                            <a target="_blank" href="{{ i.cover_pic.url }}">
+                                <img src="{{ i.cover_pic.url }}" class="img-fluid" alt=""></a>
+
+                        </div>
+                        {% endif %}
+                        {% if i.post %}
+                        <div class="status-dialog px-3">
+
+                            <p class="">{{ i.post }}</p>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                    <!-------------------- Status footer -------------->
+                    <div class="container py-3 footer">
+                        <div class="status-footer">
+                            <!------------------ like,comment,share count --------------->
+                        {% for j in i.response_set.all %}
+                            <div class="status-react-details d-flex justify-content-between">
+                                <div class="like-count">
+                                    <a href="#">
+                                        <!-- Link friends list who liked it -->
+                                        <i class="fas fa-thumbs-up" style="color: #036EE4;"></i>
+                                        <small>{{ j.like }}</small>
+                                    </a>
+                                </div>
+                                <div class="comment-share-count d-flex">
+                                    <div class="comment-count pr-2">
+                                        <small>5 comments</small>
+                                    </div>
+                                    <div class="share-count">
+                                        <small>1 share</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-1">
+                            <!------------------ like,comment, share button --------------->
+                            <div class="status-react d-flex justify-content-around">
+
+                                <form action="{% url 'UserProfile:profile' %}" method="post">
+                                    {% csrf_token %}
+                                    <button name="i" value="{{ i.id }}" class="btn btn-light  text-muted">
+                                        <i class="fas fa-thumbs-up"></i> Like
+                                    </button>
+                                </form>
+
+                                <button class="btn btn-light text-muted">
+                                    <i class="fas fa-comment-alt"></i> Comment
+                                </button>
+                                <form action="{% url 'UserProfile:profile' %}" method="post">
+                                    {% csrf_token %}
+                                    <button name="share" value="{{ i.id }}" class="btn btn-light text-muted">
+                                        <i class="fas fa-share"></i> Share
+                                    </button>
+                                </form>
+
+                            </div>
+                        {% endfor %}
+                            <hr class="m-1">
+                            <!---------------- Friends Comment area ------------------->
+                        {% for j in i.comments_set.all %}
+                            <div class="sc1-comment-root">
+                                <div class="friends-comment-area py-2">
+                                    <div class="friends-comment-box d-flex">
+                                        <div class="friends-comment-box-dp mr-2">
+                                            {% if j.compro %}
+                                            <a href="#">
+
+                                                {% cloudinary j.compro format="jpg" width=500 height=500 crop=thumb gravity=face style="width: 38px; height: 38px; border-radius: 50%;" class="img-fluid" %}
+                                                <!--                    <img class="m" src="{{ j.compro.url }}">-->
+                                                {% else %}
+                                                <img class="img-fluid" style="width: 38px; height: 38px; border-radius: 50%;"src="{% static 'image/proicon.jpg' %}">
+
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        <div id="sc1-comment1" class="friends-comment-box-details">
+                                            <!-- incrementing id -->
+                                            <div class="friends-name-comment-option d-flex">
+                                                <div class="freinds-name-comment">
+                                                    <div class="friends-name">
+                                                        <a href="#" class="text-dark">
+                                                            <!-- link friends profile -->
+                                                            {{ j.commentator.name }}
+                                                        </a>
+                                                    </div>
+                                                    <div class="friends-comment">
+                                                        <p class="comment">
+                                                            {{ j.comment }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="friends-like-count">
+                                                        <a href="#">
+                                                            <!-- Link friends list who liked it -->
+                                                            <i class="fas fa-thumbs-up" style="color: #036EE4;"></i>
+                                                            <small>9</small>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- Three dot option -->
+                                                <div class="friends-comment-box-option d-flex justify-content-center align-items-center px-1 three-dot-option">
+                                                    <div class="option-design inner-circle">
+                                                        <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+                                                            <div class="options m-0">
+                                                              <div class="edit hover-effect d-flex">
+                                                                <div class="option-icon">
+                                                                  <i class="far fa-edit"></i>
+                                                                </div>
+                                                                <div class="edit-details my-auto pr-2">
+                                                                  <p class="m-0">Edit</p>
+                                                                </div>
+                                                              </div>
+                                                              <div class="hide hover-effect d-flex">
+                                                                <div class="option-icon">
+                                                                  <i class="far fa-eye-slash"></i>
+                                                                </div>
+                                                                <div class="hide-details my-auto pr-2">
+                                                                  <p class="m-0">Hide</p>
+                                                                </div>
+                                                              </div>
+                                                              <div class="delete hover-effect d-flex">
+                                                                <div class="option-icon">
+                                                                  <i class="far fa-trash-alt"></i>
+                                                                </div>
+                                                                <div class="delete-details my-auto pr-2">
+                                                                  <p class="m-0">Delete</p>
+                                                                </div>
+                                                              </div>
+                                                              <div class="report hover-effect d-flex">
+                                                                <div class="option-icon">
+                                                                  <i class="far fa-flag"></i>
+                                                                </div>
+                                                                <div class="report-details my-auto pr-2">
+                                                                  <p class="m-0">Report this comment</p>
+                                                                </div>
+                                                              </div>
+                                                            </div>' data-placement="bottom" data-trigger="click">
+                                                            <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="friends-comment-react-time d-flex px-4">
+                                                <span class="text-secondary">
+                                                    <small><b class="text-hover-effect">Like </b>|</small>
+                                                </span>
+                                                <span class="reply text-secondary pl-1">
+                                                    <small><b class="text-hover-effect sc1-comment1-reply">Reply </b>|</small>
+                                                                            <!-- incrementing class -->
+                                                </span>
+                                                <span class="time text-secondary pl-1">
+                                                    <small><b>2h</b></small>
+                                                </span>
+                                            </div>
+                                            <!------------ replies area -------------->
+
+                                        <div class="replies-area">
+                                            <div class="friends-comment-area py-2">
+                                                <div class="friends-comment-box d-flex">
+                                                    <div class="friends-comment-box-dp mr-2">
+                                                            <a href="#">
+                                                                <!-- link friends profile -->
+                                                                <img src="img/me.jpg" class="img-fluid"
+                                                                     style="width: 38px; height: 38px; border-radius: 50%;"
+                                                                     alt="">
+                                                            </a>
+                                                    </div>
+                                                    <div class="friends-comment-box-details">
+                                                        <div class="friends-name-comment-option d-flex">
+                                                                <div class="freinds-name-comment">
+                                                                    <div class="friends-name">
+                                                                            <a href="#" class="text-dark">
+                                                                                <!-- link friends profile -->
+                                                                                Md. Imam Hasan
+                                                                            </a>
+                                                                    </div>
+                                                                    <div class="friends-comment">
+                                                                        <p class="comment">
+                                                                                Lorem ipsum dolor sit amet consectetur,
+                                                                                adipisicing elit. Minima, labore quo
+
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="friends-like-count">
+                                                                            <a href="#">
+                                                                                <!-- Link friends list who liked it -->
+                                                                                <i class="fas fa-thumbs-up"
+                                                                                   style="color: #036EE4;"></i>
+                                                                                <small>9</small>
+                                                                            </a>
+                                                                    </div>
+                                                                </div>
+                                                                    <!-- Three dot option -->
+                                                                <div class="friends-comment-box-option d-flex justify-content-center align-items-center px-1 three-dot-option">
+                                                                        <div class="option-design inner-circle">
+                                                                  <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+                                                                    <div class="options m-0">
+                                                                      <div class="edit hover-effect d-flex">
+                                                                        <div class="option-icon">
+                                                                          <i class="far fa-edit"></i>
+                                                                        </div>
+                                                                        <div class="edit-details my-auto pr-2">
+                                                                          <p class="m-0">Edit</p>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="hide hover-effect d-flex">
+                                                                        <div class="option-icon">
+                                                                          <i class="far fa-eye-slash"></i>
+                                                                        </div>
+                                                                        <div class="hide-details my-auto pr-2">
+                                                                          <p class="m-0">Hide</p>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="delete hover-effect d-flex">
+                                                                        <div class="option-icon">
+                                                                          <i class="far fa-trash-alt"></i>
+                                                                        </div>
+                                                                        <div class="delete-details my-auto pr-2">
+                                                                          <p class="m-0">Delete</p>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="report hover-effect d-flex">
+                                                                        <div class="option-icon">
+                                                                          <i class="far fa-flag"></i>
+                                                                        </div>
+                                                                        <div class="report-details my-auto pr-2">
+                                                                          <p class="m-0">Report this comment</p>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>' data-placement="bottom" data-trigger="click">
+                                                                    <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                                                                  </span>
+                                                                        </div>
+                                                                    </div>
+                                                        </div>
+                                                        <div class="friends-comment-react-time d-flex px-4">
+                                                                <span class="text-secondary">
+                                    <small><b class="text-hover-effect">Like </b>|</small>
+                                  </span>
+                                                                <span class="reply text-secondary pl-1">
+                                                                <small><b class="text-hover-effect sc1-comment1-reply">Reply </b>|</small>
+                                                                    <!-- incrementing class -->
+                                  </span>
+                                                                <span class="time text-secondary pl-1">
+                                                                    <small><b>2h</b></small>
+                                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- My comment area as reply -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                            <hr>
+                            <!-- My comment area -->
+                            <div class="my-comment-area d-flex pt-2">
+                                <div class="my-dp mr-3">
+<!--                                    <img src="img/me.jpg" class="img-fluid style="width: 38px; height: 38px; border-radius: 50%;"-->
+<!--                                         alt="">-->
+                                    {% if q %}
+                                    {% if q.profilepicture %}
+                                    {% cloudinary q.profilepicture format="jpg" width=1000 height=1000 crop="fill" class="img-fluid" style="width: 38px; height: 38px; border-radius: 50%;" %}
+
+                                    <!--                                <img src="img/me.jpg" class="img-fluid dp"-->
+                                    <!--                                     style="width: 72px; border-radius: 50%; margin: -42px auto 12px;" alt="profile picture">-->
+                                    {% else %}
+                                    <img src="{% static 'image/proicon1.jpg' %}" alt="a person" class="img-fluid" style="width: 40px; height: 40px; border-radius: 50%;">
+
+                                    {% endif %}
+                                    {% endif %}
+
+                                </div>
+                                <div class="write-my-comment">
+                                    <form action="" class="comment-input d-flex justify-content-between" method="post">
+                                        {% csrf_token %}
+                                        <div>
+                                            <input autocomplete="off" name="p"  type="text" placeholder="Write a comment">
+
+                                        </div>
+                                        <div class="media-comment">
+                                            <input type="file" id="sc1-smile" class="d-none ">
+                                            <label for="sc1-smile"><i class="far fa-smile mx-2"></i></label>
+                                            <input type="file" id="sc1-image-comment" class="d-none">
+                                            <label for="sc1-image-comment"><i class="far fa-image mx-2"></i></label>
+
+                                        </div>
+
+                                        <button type="submit" name="i.id" value="{{ i.id }}">comment</button>
+
+
+
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!------------ For Profile Pic upload status -------->
+
+            </div>
+
+            <!---------------------- Right rail -------------------------->
+            <aside class=" right-rail">
+                <!-- Birthdays card -->
+                <div class="card text-dark mb-3">
+                    <div class="card-header">
+                        <h4 class="m-0">Birthdays</h4>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">
+                            <!-- List of friends Birthday   -->
+                            <div class="hover-effect text-dark d-flex">
+                                <div class="option-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div class="my-auto px-2">
+                                    <p class="m-0"><b>Rafid</b> and <b>2 others</b> have birthdays today</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- Activity card -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="m-0">My Activity</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Single activity -->
+                        <div class="single-activity single-block hover-effect">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link friends post, share, comment -->
+                                    <div class="d-flex justify-content-between text-secondary">
+                                        <div class="py-2">
+                                            <p class="m-0">You Liked, Shared, Commented <b>Uzzal Hossain's </b>post</p>
+                                        </div>
+                                        <div class="my-auto">
+                                            <!-- Three dot option -->
+                                            <div class="d-flex justify-content-center align-items-center px-1 three-dot-option">
+                                                <div class="option-design inner-circle">
+                            <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+                            <div class="options m-0">
+                              <div class="edit hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-edit"></i>
+                                </div>
+                                <div class="edit-details my-auto pr-2">
+                                  <p class="m-0">Edit Comment</p>
+                                </div>
+                              </div>
+                              <div class="unlike hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-thumbs-down"></i>
+                                </div>
+                                <div class="hide-details my-auto pr-2">
+                                  <p class="m-0">Unlike</p>
+                                </div>
+                              </div>
+                              <div class="delete hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-trash-alt"></i>
+                                </div>
+                                <div class="delete-details my-auto pr-2">
+                                  <p class="m-0">Delete</p>
+                                </div>
+                              </div>
+                            </div>' data-placement="bottom" data-trigger="click">
+                              <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Single activity -->
+                        <div class="single-activity single-block hover-effect">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link friends post, share, comment -->
+                                    <div class="d-flex justify-content-between text-secondary">
+                                        <div class="py-2">
+                                            <p class="m-0">You Liked, Shared, Commented <b>Uzzal Hossain's </b>post</p>
+                                        </div>
+                                        <div class="my-auto">
+                                            <!-- Three dot option -->
+                                            <div class="d-flex justify-content-center align-items-center px-1 three-dot-option">
+                                                <div class="option-design inner-circle">
+                            <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+                            <div class="options m-0">
+                              <div class="edit hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-edit"></i>
+                                </div>
+                                <div class="edit-details my-auto pr-2">
+                                  <p class="m-0">Edit Comment</p>
+                                </div>
+                              </div>
+                              <div class="unlike hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-thumbs-down"></i>
+                                </div>
+                                <div class="hide-details my-auto pr-2">
+                                  <p class="m-0">Unlike</p>
+                                </div>
+                              </div>
+                              <div class="delete hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-trash-alt"></i>
+                                </div>
+                                <div class="delete-details my-auto pr-2">
+                                  <p class="m-0">Delete</p>
+                                </div>
+                              </div>
+                            </div>' data-placement="bottom" data-trigger="click">
+                              <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Single activity -->
+                        <div class="single-activity single-block hover-effect">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link friends post, share, comment -->
+                                    <div class="d-flex justify-content-between text-secondary">
+                                        <div class="py-2">
+                                            <p class="m-0">You Liked, Shared, Commented <b>Uzzal Hossain's </b>post</p>
+                                        </div>
+                                        <div class="my-auto">
+                                            <!-- Three dot option -->
+                                            <div class="d-flex justify-content-center align-items-center px-1 three-dot-option">
+                                                <div class="option-design inner-circle">
+                            <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+                            <div class="options m-0">
+                              <div class="edit hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-edit"></i>
+                                </div>
+                                <div class="edit-details my-auto pr-2">
+                                  <p class="m-0">Edit Comment</p>
+                                </div>
+                              </div>
+                              <div class="unlike hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-thumbs-down"></i>
+                                </div>
+                                <div class="hide-details my-auto pr-2">
+                                  <p class="m-0">Unlike</p>
+                                </div>
+                              </div>
+                              <div class="delete hover-effect d-flex">
+                                <div class="option-icon">
+                                  <i class="far fa-trash-alt"></i>
+                                </div>
+                                <div class="delete-details my-auto pr-2">
+                                  <p class="m-0">Delete</p>
+                                </div>
+                              </div>
+                            </div>' data-placement="bottom" data-trigger="click">
+                              <i class=" text-muted fas fa-ellipsis-h customise"></i>
+                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- My All activity -->
+                    <div class="card-footer hover-effect">
+                        <div class="my-all-activity">
+                            <div class="container">
+                                <a href="#">
+                                    <!--link my all activity -->
+                                    <div class="text-secondary">
+                                        <p class="d-inline"><b>All activity</b></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+<!------------------------------- Main Content Section End -------------------------------->
+
+<!---------------------------------- Contact Card Start ----------------------------------->
+<section id="contact-card">
+    <div class="accordion" id="accordionExample" role="tablist">
+        <div class="card">
+            <div class="card-header" role="tab">
+                <div class="d-flex justify-content-between">
+                    <h4><a data-toggle="collapse" href="#section-1" class="text-dark">Contacts</a></h4>
+                    <!-- Three dot option -->
+                    <div class="status-option three-dot-option d-flex justify-content-center align-items-center">
+                        <div class="status-option-design inner-circle">
+              <span class="d-inline-block" data-toggle="popover" data-html="true" data-content='
+              <div class="options m-0">
+                <div class="save hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bookmark"></i>
+                  </div>
+                  <div class="save-details my-auto pr-2">
+                    <p class="m-0">Save</p>
+                    <small class="text-muted m-0">Save for later</small>
+                  </div>
+                </div>
+                <div class="copy-link hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="fas fa-link"></i>
+                  </div>
+                  <div class="copy-link-details my-auto pr-2">
+                    <p class="m-0">Copy Link</p>
+                  </div>
+                </div>
+                <div class="notification-for-post hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-bell"></i>
+                  </div>
+                  <div class="notification-for-post-details my-auto pr-2">
+                    <p class="m-0">Turn on notification for this post</p>
+                  </div>
+                </div>
+                <div class="report hover-effect d-flex">
+                  <div class="option-icon">
+                    <i class="far fa-flag"></i>
+                  </div>
+                  <div class="report-details my-auto pr-2">
+                    <p class="m-0">Report this post</p>
+                  </div>
+                </div>
+              </div>' data-placement="bottom" data-trigger="click">
+                <i class=" text-muted fas fa-ellipsis-h customise"></i>
+              </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="section-1" data-parent="#accordionExample">
+                <div class="card-body">
+                    <!-- single friends contact -->
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-contact">
+                        <div>
+                            <a href="#">
+                                <!-- link  friends profile-->
+                                <div class="hover-effect text-dark d-flex">
+                                    <div class="friend-contact-dp m-2 pl-2">
+                                        <!-- link  friends profile dp-->
+                                        <img src="img/uzzal.jpg" style="width: 34px; height: 34px; border-radius: 100%;"
+                                             alt="">
+                                    </div>
+                                    <div class="friend-contact-name my-auto px-1">
+                                        <p class="m-0"><b>Uzzal Hossain</b></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tooltips basic-info">
+                            <div class="d-flex">
+                                <div class="m-3">
+                                    <a href="#">
+                                        <!--link profile -->
+                                        <img src="img/uzzal.jpg" class=" "
+                                             style="width: 72px; height: 72px; border-radius: 100%;"
+                                             alt="profile picture">
+                                    </a>
+                                </div>
+                                <div class="my-auto">
+                                    <a href="#">
+                                        <!--link profile name -->
+                                        <p class="m-0 text-dark">
+                                            <strong>Uzzal Hossain</strong>
+                                        </p>
+                                    </a>
+                                    <p class="occupation">Student at American International University Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!----------------------------------- Contact Card End =----------------------------------->
+
+<div id="overlay" class="overlay d-none"></div>
+
+<!----------- Neccesary JS file -------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+<script src="{% static 'My_Buddy/js/script.js' %}"></script>
+<script>
+    $('[data-toggle="popover"]').popover();
+</script>
+</body>
+
+</html>

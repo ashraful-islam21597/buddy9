@@ -1,0 +1,790 @@
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background: #fdfdfd;
+}
+
+.app-name {
+    border-radius: 5px;
+}
+
+.btn-rounded {
+    border-radius: 30px;
+}
+
+.btn-rounded:hover > i {
+    color: white !important;
+}
+
+footer a {
+    color: gray;
+}
+
+.m--5 {
+    margin-top: -35px;
+}
+
+.m--5 span {
+    padding: 0 15px;
+    font-size: 20px;
+    font-weight: 400;
+    display: inline-block;
+    background: white;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: black;
+}
+
+a small:hover {
+    text-decoration: underline;
+}
+
+.three-dot-option {
+    cursor: pointer;
+}
+
+.three-dot-option .inner-circle {
+    padding: 4px 8px;
+    border-radius: 50%;
+}
+
+.three-dot-option .inner-circle:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.popover {
+    z-index: 1300 !important;
+}
+
+.option-icon {
+    font-size: 22px;
+    padding: 4px 10px;
+}
+
+.hover-effect:hover {
+    background: rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+}
+
+.text-hover-effect:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.card-body {
+    padding: 10px 0 !important;
+}
+
+.friends-contact {
+    position: relative;
+}
+
+.tooltips {
+    position: absolute;
+    display: none;
+    min-width: 400px;
+    background-color: white;
+    border-radius: 6px;
+    top: -25px;
+    right: 101%;
+    -webkit-box-shadow: 0 0 5px gray;
+    box-shadow: 0 0 5px gray;
+}
+
+.friends-contact:hover .tooltips {
+    display: block;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+nav {
+    padding: 0px !important;
+    border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+}
+
+nav .navbar-brand {
+    font-weight: 700;
+}
+
+nav li .active {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.85);
+}
+
+nav .search-box {
+    border: rgba(0, 0, 0, 0.2) 1px solid;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+nav .search-box .search-input {
+    border: none;
+    padding: 0.4rem 1rem;
+}
+
+nav .search-box .search-input:focus {
+    outline: none;
+}
+
+nav .search-box a {
+    padding-right: 1rem;
+}
+
+nav .main-item .nav-item {
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+nav .main-item .nav-item a {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+nav .main-item .nav-item a .place-name {
+    padding-top: 5px;
+    font-size: 11.5px;
+}
+
+nav .main-item .nav-item .customise {
+    font-size: 25px;
+    position: relative;
+}
+
+nav .main-item .nav-item .notify {
+    position: absolute;
+    top: 14%;
+    margin-left: 23px;
+    border: white 1px solid;
+    color: white;
+    font-size: 8px;
+    width: 22px;
+    height: 22px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: rgba(255, 0, 0, 0.808);
+    border-radius: 50%;
+}
+
+#contact-card {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 340px;
+    border: rgba(0, 0, 0, 0.13) 1px solid;
+    border-radius: 8px;
+    -webkit-box-shadow: -1px -1px 10px rgba(128, 128, 128, 0.616);
+    box-shadow: -1px -1px 10px rgba(128, 128, 128, 0.616);
+}
+
+#contact-card .card-header h4 > a {
+    padding-right: 170px;
+}
+
+#contact-card .card-body {
+    max-height: 375px;
+    overflow: auto;
+}
+
+.over-page {
+    margin-left: 65%;
+    margin-top: 11px;
+    position: fixed;
+    width: 360px;
+    max-height: 550px;
+    overflow: auto;
+    border-radius: 8px;
+    z-index: 1200;
+    -webkit-box-shadow: 0 0 5px gray;
+    box-shadow: 0 0 5px gray;
+}
+
+.over-page-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+    width: 45%;
+    background-color: white;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+
+.status-over-page-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 75%;
+    background-color: white;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+}
+
+.single-block .inner-circle {
+    display: none;
+}
+
+.single-block:hover .inner-circle {
+    display: block;
+}
+
+#meDropdown {
+    margin-left: 70%;
+    width: 260px;
+}
+
+#meDropdown .view-profile {
+    border-radius: 30px;
+}
+
+.modals-header {
+    padding: 1.7rem 1.7rem 0;
+}
+
+.cancel-save-button {
+    padding: 0 1.7rem 1.7rem;
+}
+
+.write-post-modal {
+    z-index: 10;
+}
+
+.write-post-modal .dp-name-privacy {
+    padding: 0 1.7rem;
+}
+
+.write-post-modal .post-options-w-button {
+    padding: 0 1.7rem 1.7rem;
+}
+
+.write-post-modal .privacy-button button,
+.write-post-modal .comment-privacy-button button {
+    border-radius: 20px;
+}
+
+.write-post-modal .post-content {
+    height: 170px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.write-post-modal .post-content .content-area {
+    padding: 0 1.7rem;
+}
+
+.write-post-modal .post-content .content-area textarea {
+    border: none;
+    resize: none;
+    overflow: hidden;
+}
+
+.write-post-modal .post-content .content-area textarea:focus {
+    outline: none;
+}
+
+.write-post-modal .post-content .content-area .img-video-area {
+    width: 100%;
+    min-height: 100px;
+}
+
+.write-post-modal .post-content .content-area .img-video-area .img {
+    position: relative;
+}
+
+.write-post-modal .post-content .content-area .img-video-area .video {
+    position: relative;
+    border: none;
+}
+
+.write-post-modal .post-content .content-area .img-video-area .closeImg {
+    position: absolute;
+    font-size: 30px;
+    padding: 0px 14px 5px;
+    right: 0;
+    top: 1%;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+}
+
+.write-post-modal .post-content .content-area .img-video-area .closeImg:hover {
+    background: rgba(128, 128, 128, 0.363);
+    color: black;
+}
+
+.privacy-modal .modals-body small {
+    padding: 0 1.7rem;
+}
+
+.privacy-modal,
+.comment-privacy-modal {
+    z-index: 11;
+}
+
+.privacy-modal .privacy-options,
+.comment-privacy-modal .privacy-options {
+    padding: 0 1.7rem;
+}
+
+.privacy-modal .privacy-options .option,
+.comment-privacy-modal .privacy-options .option {
+    margin-bottom: 13px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.privacy-modal .privacy-options .option input,
+.comment-privacy-modal .privacy-options .option input {
+    display: none;
+}
+
+.privacy-modal .privacy-options .option label,
+.comment-privacy-modal .privacy-options .option label {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.privacy-modal .privacy-options .option label i,
+.comment-privacy-modal .privacy-options .option label i {
+    margin-right: 15px;
+}
+
+.privacy-modal .privacy-options .option .radio-button,
+.comment-privacy-modal .privacy-options .option .radio-button {
+    height: 26px;
+    width: 26px;
+    border: 2px solid gray;
+    border-radius: 50%;
+    -webkit-transition: border 0.1s;
+    transition: border 0.1s;
+}
+
+.privacy-modal .privacy-options .option input:checked ~ .radio-button,
+.comment-privacy-modal .privacy-options .option input:checked ~ .radio-button {
+    border: 5px solid #0a66c2;
+}
+
+.comment-privacy-modal {
+    z-index: 12;
+}
+
+.core-rail {
+    width: 540px;
+    margin-left: 245px;
+}
+
+.core-rail .create-post {
+    border: rgba(0, 0, 0, 0.13) 1px solid;
+    border-radius: 8px;
+}
+
+.core-rail .create-post .btn-post {
+    border-radius: 30px;
+    text-align: left;
+}
+
+.core-rail .status-card {
+    border-radius: 8px;
+    border: rgba(0, 0, 0, 0.13) 1px solid;
+}
+
+.core-rail .status-card .status-owner-name-details .owner-name {
+    font-weight: 600;
+}
+
+.core-rail .status-card .status-owner-name-details .status-details .customise {
+    font-size: 12px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.core-rail .status-footer .my-comment-area .write-my-comment .comment-input {
+    width: 140%;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.171);
+    border-radius: 30px;
+    padding: 10px 18px 0px;
+}
+
+.core-rail .status-footer .my-comment-area .write-my-comment .comment-input input {
+    border: none;
+    background: transparent;
+}
+
+.core-rail .status-footer .my-comment-area .write-my-comment input:focus {
+    outline: none;
+}
+
+.core-rail .status-footer .my-comment-area .write-my-comment .media-comment {
+    font-size: 20px;
+}
+
+.core-rail .status-footer .my-comment-area .write-my-comment .media-comment label:hover {
+    cursor: pointer;
+}
+
+.core-rail .status-footer .friends-comment-area .friends-comment-box .friends-comment-box-details .friends-name-comment-option .freinds-name-comment {
+    background: rgba(0, 0, 0, 0.109);
+    padding: 8px;
+    border-radius: 15px;
+    max-width: 350px;
+    position: relative;
+}
+
+.core-rail .status-footer .friends-comment-area .friends-comment-box .friends-comment-box-details .friends-name-comment-option .freinds-name-comment .friends-like-count {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.109);
+    padding: 0 6px;
+    border-radius: 20px;
+    right: 1%;
+    bottom: -5%;
+}
+
+.core-rail .cover-photo-w-dp {
+    position: relative;
+}
+
+.core-rail .cover-photo-w-dp .new-dp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -40%);
+    transform: translate(-50%, -40%);
+    border: 4px solid white;
+    width: 195px;
+    height: 195px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+#main-content .left-rail {
+    width: 230px;
+    position: fixed;
+}
+
+#main-content .left-rail .card {
+    border-radius: 8px;
+}
+
+#main-content .left-rail .card .cover {
+    background: url("../img/cover.PNG") no-repeat;
+    background-size: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 60px;
+}
+
+#main-content .left-rail .card .name {
+    font-size: 22px;
+}
+
+#main-content .left-rail .card .name:hover {
+    color: black !important;
+}
+
+#main-content .left-rail .card .occupation {
+    font-size: 15px;
+}
+
+#main-content .left-rail .card-body {
+    padding: 0 !important;
+    padding-bottom: 15px !important;
+    font-size: 13px;
+}
+
+#main-content .left-rail .card-body span {
+    color: blue;
+}
+
+#main-content .left-rail .card-footer {
+    padding: 0;
+}
+
+#main-content .left-rail .card-footer .my-items {
+    padding: 15px;
+    font-size: 14px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#main-content .left-rail .card-footer .my-items:hover {
+    background: rgba(0, 0, 0, 0.164);
+}
+
+#main-content .right-rail {
+    width: 320px;
+    position: fixed;
+    top: 11.6%;
+    right: 9%;
+}
+
+#main-content .right-rail .card {
+    border-radius: 8px;
+}
+
+#main-content .right-rail .card .card-body {
+    max-height: 216px;
+    overflow: auto;
+}
+
+#mn-main-content .left-rail {
+    width: 380px;
+    position: fixed;
+}
+
+#mn-main-content .left-rail .card-body .customise-i {
+    font-size: 20px;
+    margin-top: 4px;
+    padding-right: 12px;
+}
+
+#mn-main-content .left-rail .card-body .side-bar {
+    border-radius: 5px;
+}
+
+#mn-main-content .left-rail .card-body .active {
+    border-right: 3px solid rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.164) !important;
+}
+
+#mn-main-content .left-rail .card-body .active i, #mn-main-content .left-rail .card-body .active h5 {
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+#mn-main-content .right-rail {
+    width: 760px;
+    margin-left: 400px;
+}
+
+#mn-main-content .right-rail .btn-ignore:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#mn-main-content .right-rail .btn-accept {
+    padding: 2px 18px;
+    border-radius: 20px;
+}
+
+#mn-main-content .right-rail .btn-cancel,
+#mn-main-content .right-rail .btn-connect {
+    padding: 2px 58px;
+    border-radius: 20px;
+}
+
+#mn-main-content .right-rail .d-card .card {
+    border-radius: 8px;
+    width: 210px;
+}
+
+#mn-main-content .right-rail .d-card .card img {
+    border-radius: 8px 8px 0 0;
+}
+
+#mn-main-content .right-rail .d-card .card .name {
+    font-size: 20px;
+}
+
+#mn-main-content .right-rail .d-card .card .name:hover {
+    color: black !important;
+}
+
+#mn-main-content .right-rail .d-card .card:hover {
+    -webkit-box-shadow: 0 5px 5px rgba(128, 128, 128, 0.5);
+    box-shadow: 0 5px 5px rgba(128, 128, 128, 0.5);
+}
+
+.profile-pic-edit-modal,
+.cover-pic-edit-modal,
+.edit-profile-modal {
+    z-index: 10;
+}
+
+.profile-pic-edit-modal .privacy-button button,
+.cover-pic-edit-modal .privacy-button button,
+.edit-profile-modal .privacy-button button {
+    border-radius: 20px;
+}
+
+.upload-crop-dp-modal,
+.upload-crop-cp-modal {
+    z-index: 11;
+}
+
+.photo-privacy-modal {
+    z-index: 11;
+}
+
+.photo-privacy-modal .modals-body small {
+    padding: 0 1.7rem;
+}
+
+.photo-privacy-modal .privacy-options {
+    padding: 0 1.7rem;
+}
+
+.photo-privacy-modal .privacy-options .option {
+    margin-bottom: 13px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.photo-privacy-modal .privacy-options .option input {
+    display: none;
+}
+
+.photo-privacy-modal .privacy-options .option label {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.photo-privacy-modal .privacy-options .option label i {
+    margin-right: 15px;
+}
+
+.photo-privacy-modal .privacy-options .option .radio-button {
+    height: 26px;
+    width: 26px;
+    border: 2px solid gray;
+    border-radius: 50%;
+    -webkit-transition: border 0.1s;
+    transition: border 0.1s;
+}
+
+.photo-privacy-modal .privacy-options .option input:checked ~ .radio-button {
+    border: 5px solid #0a66c2;
+}
+
+#profile-main-content .profile-nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 65px;
+    background: white;
+    z-index: 2;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.363);
+}
+
+#profile-main-content .profile-cover-dp-name {
+    background: #757f9a65;
+    /* fallback for old browsers */
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#757f9a65));
+    background: linear-gradient(to top, #ffffff, #757f9a65);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#profile-main-content .cover-photo {
+    position: relative;
+}
+
+#profile-main-content .cover-photo img {
+    border-radius: 7px;
+}
+
+#profile-main-content .cover-photo button {
+    position: absolute;
+    right: 8%;
+    bottom: 6%;
+}
+
+#profile-main-content .dp {
+    display: inline-block;
+    position: relative;
+}
+
+#profile-main-content .dp img {
+    margin-top: -170px;
+}
+
+#profile-main-content .dp button {
+    position: absolute;
+    right: 5%;
+    bottom: 95%;
+}
+
+#profile-main-content .profileNav .btn.active {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+#profile-main-content .posts .core-rail {
+    margin-left: 20px;
+}
+
+#profile-main-content .posts .left-rail {
+    width: 400px;
+}
+
+#profile-main-content .posts .left-rail .card {
+    border-radius: 8px;
+}
+
+#profile-main-content .posts .left-rail .card img {
+    margin: 6px 0;
+    height: 120px;
+    width: 120px;
+    border-radius: 8px;
+}
+
+#profile-main-content .posts .left-rail .basic-info i {
+    font-size: 26px;
+    color: gray;
+}
+
+#profile-main-content .about .about-side-nav {
+    border-right: 1px solid rgba(128, 128, 128, 0.514);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    z-index: 5;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 from cloudinary import CloudinaryImage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
@@ -14,8 +15,7 @@ from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
 from django.db import models
 from cloudinary.models import CloudinaryField
-
-
+from django.forms import ModelForm
 
 
 class Profile(models.Model):
@@ -34,6 +34,7 @@ class Profile(models.Model):
     profilepicture=CloudinaryField('image')
     coverpicture = CloudinaryField('image')
     profilepicture_url=models.CharField(max_length=400)
+    active_status=models.TextField(max_length=5)
 
     def __str__(self):
         return self.username
@@ -367,6 +368,7 @@ class comments(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     comment = models.TextField(max_length=1000)
+
     def com(self):
         return self.commentator.name
     def compro(self):
@@ -461,6 +463,10 @@ class comments(models.Model):
             s4 = day[total % 7]
 
             return s4
+class commentsForm(ModelForm):
+    class Meta:
+        model= comments
+        fields ='__all__'
 class replies(models.Model):
     reply = models.ForeignKey(comments, on_delete=models.CASCADE)
     replier = models.ForeignKey(Profile, on_delete=models.CASCADE)

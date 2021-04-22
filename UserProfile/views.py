@@ -7,6 +7,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 import datetime
+
+from .forms import commentForm
 from .models import Response, Profile, status, friend, notification, coverphotos, profilephotos, Liker, comments, \
     replies, chatroom, allmessages, user_cover_photos, user_profile_photos, user_timeline_photos, usersociallink, \
     user_compressed_timeline_image, Videos
@@ -49,6 +51,9 @@ def signin(request):
                 f = friend.objects.create(name=name, contact=contact, username=username, email=email)
                 f.save()
                 q = auth.authenticate(username=username, password=password)
+                q1=get_object_or_404(Profile, username=q.username)
+                q1.active_status="yes"
+                q1.save()
                 auth.login(request, q)
                 return redirect('/')
         else:
@@ -58,8 +63,14 @@ def signin(request):
         password = request.POST['password']
         q = auth.authenticate(username=username, password=password)
 
+
         if q is not None:
+            q1 = get_object_or_404(Profile, username=q.username)
+            q1.active_status="yes"
+            q1.save()
+
             auth.login(request, q)
+
             return redirect('/')
         else:
             messages.info(request, "wrong credential")
@@ -67,7 +78,6 @@ def signin(request):
 
     else:
         return render(request, 'account.html')
-
 
 def profile(request):
     if request.user is not None and request.user.is_authenticated:
@@ -94,12 +104,14 @@ def profile(request):
             return HttpResponseRedirect(reverse('blog:editprofile', args=(id,)))
 
         elif 'profile' in request.POST:
-            print('hello')
+
             return HttpResponseRedirect(reverse('blog:friendprofile', args=(q.username,)))
             #return HttpResponseRedirect('/' + str(q.username))
             #return render(request, 'new_profile.html', {'q': q, 'x': x, 'link': link})
         elif 'Logout' in request.POST:
             auth.logout(request)
+            q.active_status="No"
+            q.save()
             return redirect("/signin/")
         elif 'uploadtimelinevideo' in request.POST:
             caption = request.POST['caption']
@@ -175,7 +187,7 @@ def profile(request):
             if pic.size < 10485760 :
                 user_cover_photo = user_cover_photos(idcoverowner_id=q.id, cover_picture=pic)
                 user_cover_photo.save()
-                print(user_cover_photo.cover_picture)
+
 
                 sta = status(user_id=q.id, cover_pic=user_cover_photo.cover_picture)
                 sta.save()
@@ -208,9 +220,9 @@ def profile(request):
 
         elif 'i' in request.POST:
             q4 = get_object_or_404(status, pk=request.POST['i'])
-            print(q4.id)
+
             q1 = q4.response_set.get(pk=request.POST['i'])
-            print(q1)
+
             try:
                 ls = Liker.objects.get(status_id=request.POST['i'], liker_id=q.id)
                 q1.like -= 1
@@ -228,14 +240,20 @@ def profile(request):
         elif 'save_comment' in request.POST:
 
             ss = get_object_or_404(status, pk=request.POST['i.id'])
-            print('hh')
+
             c = comments(status_id=ss.id, commentator_id=q.id, comment=request.POST['p1'])
             c.save()
-            print('comment_saved')
+
             return redirect(request.META['HTTP_REFERER'],{'link': link})
 
-        elif 'i.id' in request.POST:
+        elif "i.id" in request.POST:
+            #print(request.POST[i.id])
+            #x=request.POST["p{{ i.id }}"]
+
+            print(request.POST['i.id'])
+            # print(request.POST['p'])
             ss = get_object_or_404(status, pk=request.POST['i.id'])
+            print(ss.post)
             c = comments(status_id=ss.id, commentator_id=q.id, comment=request.POST['p'])
             c.save()
             return redirect(request.META['HTTP_REFERER'],{'link': link})
@@ -246,6 +264,7 @@ def profile(request):
             return redirect(request.META['HTTP_REFERER'],{'link': link})
 
         elif 'delete' in request.POST:
+            print('delete')
             s = status.objects.get(id=request.POST['delete'])
             s.delete()
             return redirect(request.META['HTTP_REFERER'], {'link': link})
@@ -312,16 +331,17 @@ def profile(request):
                 u.save()
                 res = Response(status_id=sta.id, like=0)
                 res.save()
+
+
+
+
+                #posts = request.POST['post']
+                pro = status(user_id=q.id, post=q1.post)
+                pro.save()
+                res = Response(status_id=pro.id, like=0)
+                res.save()
+                #return redirect('/')
                 return redirect(request.META['HTTP_REFERER'],{'link': link})
-
-            print(q1.user)
-
-            #posts = request.POST['post']
-            pro = status(user_id=q.id, post=q1.post)
-            pro.save()
-            res = Response(status_id=pro.id, like=0)
-            res.save()
-            return redirect('/')
 
 
             #return redirect('/')
@@ -347,10 +367,24 @@ def profile(request):
             print(x)
             message = "sent you a friend request"
             return HttpResponseRedirect('/' + str(q1.username))
+        # elif 'i.id' in request.POST:
+        #     #print(request.POST[i.id])
+        #     ss = get_object_or_404(status, pk=request.POST['i.id'])
+        #     data=comments(status_id=ss.id, commentator_id=q.id, comment=request.POST['i.id'])
+        #     form = commentForm(request.POST,data)
+        #     if form.is_valid():
+        #         form.save()
+        #         print("H")
+        #         return redirect('/')
+        #     else:
+        #         print('k')
+        #         return redirect('/')
+
+
 
         else:
 
-            return render(request, 'home.html', context={
+            return render(request, 'home1.html', context={
                 'q': q,
                 's': s,
                 'stat': stat,
@@ -372,7 +406,7 @@ def friendprofile(request, username):
         q = Profile.objects.get(username=q2.username)
         # q1 = get_object_or_404(friend, pk=q.id)
         x = q3.user.all()
-        print(q1,q,q2)
+        #print(q1,q,q2)
 
         return render(request, 'friendprofile.html', {'q': q, 'x': x, 'q1': q1,'link':link})
     else:
@@ -391,7 +425,10 @@ def logout(request):
     else:
         return HttpResponseRedirect('/signin/')
 
-
+def delete(request):
+    s = status.objects.get(id=request.POST['delete'])
+    s.delete()
+    return redirect(request.META['HTTP_REFERER'])
 def addfriend(request):
     if request.user is not None and request.user.is_authenticated:
 

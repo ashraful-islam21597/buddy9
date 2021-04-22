@@ -5,8 +5,10 @@ from .models import Profile, status, friend, notification, coverphotos, profilep
 
 
 class statusAdmin(admin.ModelAdmin):
-    list_display=['post','date','day','time']
-admin.site.register(Profile)
+    list_display=['post','date','day','time','id']
+class profileadmin(admin.ModelAdmin):
+    list_display=['username','active_status','email']
+admin.site.register(Profile,profileadmin)
 admin.site.register(status,statusAdmin)
 admin.site.register(friend)
 admin.site.register(notification)

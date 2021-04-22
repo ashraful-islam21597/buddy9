@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    url('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     #url(r'^my_secure_admin/', admin.site.urls),
     path('',include('UserProfile.urls'))
 ]

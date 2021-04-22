@@ -178,7 +178,7 @@
     <br>
     <div style="text-align:center;">
         <b style="text-transform:capitalize;">
-            <a href="{% url 'blog:friendprofile' q.username %}" style="color:white;text-decoration:none;">
+            <a href="{% url 'UserProfile:friendprofile' q.username %}" style="color:white;text-decoration:none;">
                 <div>{{ q.name|title }}</div>
             </a>
         </b>
@@ -251,15 +251,15 @@
         </form>
     </a>
     <a>
-        <form action="{% url 'blog:friendprofile' q.username  %}" method="post">{% csrf_token %}
+        <form action="{% url 'UserProfile:friendprofile' q.username  %}" method="post">{% csrf_token %}
             <button class="nav_button" name="profile" type="submit" value="Profile">Profile</button>
         </form>
     </a>
 
-    <a href="{% url 'blog:addfriend' %}">Friends</a>
-    <a href="{% url 'blog:note' %}">Notification</a>
+    <a href="{% url 'UserProfile:addfriend' %}">Friends</a>
+    <a href="{% url 'UserProfile:note' %}">Notification</a>
     <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
-    <form action="{% url 'blog:profile' %}" class="nav_input" method="POST">
+    <form action="{% url 'UserProfile:profile' %}" class="nav_input" method="POST">
         {% csrf_token %}
         <input  name="s" class="fas"  required type="search" placeholder="search...">
         <button name="search" style="margin-left:5%;" type="submit">search</button>
@@ -296,7 +296,7 @@
                 <img class="m" src="{% static 'image/proicon.jpg' %}">
                 {% endif %}
                 <small class="a">
-                    <a href="{% url 'blog:friendprofile' i.u %}">
+                    <a href="{% url 'UserProfile:friendprofile' i.u %}">
                         {{ i.np }}
                     </a>
                 </small>
@@ -386,10 +386,12 @@
         <!-- like coment share -->
         <div class="col-11" style="margin:auto;">
             {% for j in i.response_set.all %}
-            <form action="{% url 'blog:profile' %}" method="post">{% csrf_token %}
+            <form action="{% url 'UserProfile:profile' %}" method="post">
+                {% csrf_token %}
                 <button class="comment1"   name="i" value="{{ i.id }}">{{ j.like }} Like</button>
             </form>
-            <form action="{% url 'blog:profile' %}" method="post">{% csrf_token %}
+            <form action="{% url 'UserProfile:profile' %}" method="post">
+                {% csrf_token %}
                 <button name="share" value="{{ i.id }}" class="comment1">sahre</button>
             </form>
             <button class="comment">comment</button>
@@ -430,8 +432,8 @@
                     <img class="m" src="{% static 'image/proicon.jpg' %}">
                     {% endif %}
                     <b>
-                        <a href="{% url 'blog:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>
-                        commented on <a href="{% url 'blog:friendprofile' i.u %}">{{ i.np }}</a>'s post
+                        <a href="{% url 'UserProfile:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>
+                        commented on <a href="{% url 'UserProfile:friendprofile' i.u %}">{{ i.np }}</a>'s post
 
                     </b>
 
@@ -457,8 +459,8 @@
                             <img class="m" src="{% static 'image/proicon.jpg' %}">
                             {% endif %}
                             <b>
-                                <a href="{% url 'blog:friendprofile' j1.replier_username %}">{{ j1.replier_name }}</a>
-                                replied on <a href="{% url 'blog:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>'s comment
+                                <a href="{% url 'UserProfile:friendprofile' j1.replier_username %}">{{ j1.replier_name }}</a>
+                                replied on <a href="{% url 'UserProfile:friendprofile' j.commentator.username %}">{{ j.commentator.name }}</a>'s comment
 
 
                                 {% if j1.replier.username == q.username %}
@@ -653,6 +655,7 @@
             {% for j1 in x %}
             {% if j.id != q.id %}
             {% if j.id == j1.id %}
+            {% if j1.active_status == "yes" %}
 
             <li class="tooltip">
                 {% if j1.profilepicture %}
@@ -661,7 +664,7 @@
                 {% else %}
                 <img class="middle" src="{% static 'image/proicon.jpg' %}">
                 {% endif %}
-                <small class="a"><a href="{% url 'blog:chats' j.username %}">{{ j.name }}</a></small>
+                <small class="a"><a href="{% url 'UserProfile:chats' j.username %}">{{ j.name }}</a></small>
                 <div class="tooltiptext">
                     <div class="col-6" style="float:left;">
                         {% if j1.profilepicture %}
@@ -672,11 +675,12 @@
                         {% endif %}
                     </div>
                     <div class="col-5" style="float:left;height:auto;text-indent:10px;padding-right:1%;">
-                        <p><a href="{% url 'blog:friendprofile' j.username %}">{{ j.name }}</a></p>
+                        <p><a href="{% url 'UserProfile:friendprofile' j.username %}">{{ j.name }}</a></p>
                         <p><a href="http:www.gmail.com">{{ j.email }}</a></p>
                     </div>
                 </div>
             </li>
+            {% endif %}
             {% endif %}
             {% endif %}
             {% endfor %}

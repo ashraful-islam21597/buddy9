@@ -137,6 +137,7 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 cloudinary.config(
   cloud_name = "dzy9qbz8m",
   api_key = "221514387314271",

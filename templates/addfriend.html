@@ -55,7 +55,7 @@
 
 		<div style="color:white;width:100%;text-align:center;padding-bottom:3%;">
 		<hr>
-            <a class="t" href="{% url 'blog:friendprofile' q.username %}"><b style="font-size:20px;">{{ i.name }}</b></a>
+            <a class="t" href="{% url 'UserProfile:friendprofile' q.username %}"><b style="font-size:20px;">{{ i.name }}</b></a>
 		<hr>
         <form method="post">
         {% csrf_token %}

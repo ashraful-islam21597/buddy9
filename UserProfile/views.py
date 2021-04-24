@@ -303,7 +303,7 @@ def profile(request):
             if q1.timeline_pic:
                 #user_timeline_photo.save()
                 #c=CloudinaryImage(str(timelinepic)).image()
-                cap=q.name+ " shared "+q1.user.name+"`s timeline photo"
+                cap=q.name+ " shared "+q1.user.name+"'s timeline photo"
                 pro = status(user_id=q.id,shared_caption=cap, caption=q1.caption,  timeline_pic=q1.timeline_pic)
                 #pro = status(user_id=q.id, caption=caption, timeline_pic=c)
                 pro.save()
@@ -331,20 +331,21 @@ def profile(request):
                 u.save()
                 res = Response(status_id=sta.id, like=0)
                 res.save()
+                return redirect('/')
 
 
 
 
                 #posts = request.POST['post']
-                pro = status(user_id=q.id, post=q1.post)
-                pro.save()
-                res = Response(status_id=pro.id, like=0)
-                res.save()
-                #return redirect('/')
-                return redirect(request.META['HTTP_REFERER'],{'link': link})
-
-
+            pro = status(user_id=q.id, post=q1.post)
+            pro.save()
+            res = Response(status_id=pro.id, like=0)
+            res.save()
             #return redirect('/')
+            return redirect(request.META['HTTP_REFERER'],{'link': link})
+
+
+
         elif 'k1' in request.POST:
             k = request.POST['k1']
             q1 = Profile.objects.get(username=request.POST['k1'])
@@ -384,7 +385,7 @@ def profile(request):
 
         else:
 
-            return render(request, 'home1.html', context={
+            return render(request, 'home.html', context={
                 'q': q,
                 's': s,
                 'stat': stat,
